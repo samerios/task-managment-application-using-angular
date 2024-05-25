@@ -1,3 +1,6 @@
 {
-    "USERNAME": "שם משתמש"
+    "LOGIN": {
+        "USERNAME": "שם משתמש",
+        "PASSWORD": "סיסמה"
+    }
 }
