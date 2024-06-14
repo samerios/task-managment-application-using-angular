@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../../services/auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -10,7 +12,9 @@ export class IndexComponent implements OnInit {
 
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  isLoading: boolean = false;
+
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -20,12 +24,18 @@ export class IndexComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
+  onLogin(): void {
     if (this.form.valid) {
+      this.isLoading = true;
       // Handle the login logic here
-      console.log('Form Submitted', this.form.value);
-    } else {
-      console.log('Form is invalid');
+      setTimeout(() => {
+
+        this.authService.login(this.form.get('username')?.value, this.form.get('password')?.value).subscribe((res: null | {}) => {
+          this.isLoading = false;
+          if (!res) console.error('Login failed', 'Incorrect Username or password');
+          else this.router.navigate(['/dashboard']);
+        })
+      }, 1000)
     }
   }
 }
