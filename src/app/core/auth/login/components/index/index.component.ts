@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth-service.service';
 import { Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 
 @Component({
   selector: 'app-index',
@@ -14,7 +15,7 @@ export class IndexComponent implements OnInit {
 
   isLoading: boolean = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private localStorageService: LocalStorageService) {
   }
 
   ngOnInit(): void {
@@ -33,7 +34,10 @@ export class IndexComponent implements OnInit {
         this.authService.login(this.form.get('username')?.value, this.form.get('password')?.value).subscribe((res: null | {}) => {
           this.isLoading = false;
           if (!res) console.error('Login failed', 'Incorrect Username or password');
-          else this.router.navigate(['/dashboard']);
+          else {
+            this.localStorageService.setItem('isLoggedIn', true)
+            this.router.navigate(['/dashboard']);
+          }
         })
       }, 1000)
     }

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CoreRoutingModule } from './core-routing.module';
 import { AuthService } from './auth/services/auth-service.service';
-import { AuthGuard } from './auth/guard/auth-guard.guard';
+import { CanActivateAuthGuard } from './auth/guard/can-activate.guard';
 
 
 @NgModule({
@@ -13,6 +13,6 @@ import { AuthGuard } from './auth/guard/auth-guard.guard';
     CommonModule,
     CoreRoutingModule
   ],
-  providers: [AuthGuard, AuthService]
+  providers: [CanActivateAuthGuard, AuthService]
 })
 export class CoreModule { }
