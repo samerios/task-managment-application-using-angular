@@ -7,11 +7,21 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatMenuModule } from '@angular/material/menu';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { MatOption } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ToolbarComponent,
+    SidebarComponent
+  ],
   imports: [
     CommonModule,
     MatInputModule,
@@ -22,7 +32,12 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     ReactiveFormsModule,
     TranslateModule, // Import the TranslateModule
     MatMenuModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSelectModule,
+    MatOption,
+    MatSnackBarModule
   ],
   exports: [
     MatInputModule,
@@ -33,7 +48,12 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     ReactiveFormsModule,
     TranslateModule, // Import the TranslateModule
     MatMenuModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ToolbarComponent,
+    SidebarComponent,
+    MatSelectModule,
+    MatOption,
+    MatSnackBarModule
   ]
 })
 export class SharedModule { }

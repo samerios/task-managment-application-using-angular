@@ -3,16 +3,22 @@ import { CommonModule } from '@angular/common';
 
 import { CoreRoutingModule } from './core-routing.module';
 import { AuthService } from './auth/services/auth-service.service';
-import { CanActivateAuthGuard } from './auth/guard/can-activate.guard';
+import { SharedModule } from '../shared/shared.module';
+import { LoginIndexComponent } from './auth/login/components/index/index.component';
+import { MainComponent } from './main/main.component';
 
 
 @NgModule({
   declarations: [
+    LoginIndexComponent,
+    MainComponent
   ],
   imports: [
     CommonModule,
-    CoreRoutingModule
+    CoreRoutingModule,
+    SharedModule
   ],
-  providers: [CanActivateAuthGuard, AuthService]
+  exports:[MainComponent],
+  providers: [AuthService]
 })
 export class CoreModule { }

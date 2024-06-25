@@ -1,14 +1,21 @@
+// app-routing.module.ts
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CanActivateAuthGuard } from './core/auth/guard/can-activate.guard';
+import { LoginGuard } from './shared/guards/login.guard';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
-  // { path: '', redirectTo: '', pathMatch: 'full' },
-  //  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: '', loadChildren: () => import('./core/core.module').then(m => m.CoreModule), canActivate: [CanActivateAuthGuard], canDeactivate: [CanActivateAuthGuard] },
-  // other routes here
-  { path: '**', redirectTo: '' }  // Wildcard route for a 404 page
+  { path: 'auth', loadChildren: () => import('./core/core.module').then(m => m.CoreModule), canActivate: [LoginGuard],canActivateChild:[LoginGuard] },
+  { 
+    path: 'tasks', 
+    loadChildren: () => import('./task/dashboard/dashboard.module').then(m => m.DashboardModule), 
+    canActivate: [AuthGuard], 
+    canActivateChild: [AuthGuard] 
+  },
+  { path: '', redirectTo: '/auth', pathMatch: 'full' },
+  { path: '**', redirectTo: '/auth' } // Fallback route
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

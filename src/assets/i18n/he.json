@@ -2,5 +2,15 @@
     "LOGIN": {
         "USERNAME": "שם משתמש",
         "PASSWORD": "סיסמה"
+    },
+    "SYSTEM": {
+        "LOGOUT": "התנתק",
+        "LOGIN_FAILED": {
+            "HEADER": "ההתחברות נכשלה",
+            "CONTENT": "שם משתמש או סיסמה שגויים"
+        },
+        "APP_NAME": {
+            "TASK_MANAGER": "ניהול משימות"
+        }
     }
 }
