@@ -27,7 +27,7 @@ export class AuthService {
           localStorage.setItem('currentUser', JSON.stringify(response));
           this.currentUser = response;
         }
-        throw new Error('An error occurred while fetching data.');
+       else throw new Error('An error occurred while fetching data.');
       })
     );
   }
