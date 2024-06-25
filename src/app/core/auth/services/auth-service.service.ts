@@ -27,7 +27,7 @@ export class AuthService {
           localStorage.setItem('currentUser', JSON.stringify(response));
           this.currentUser = response;
         }
-       else throw new Error('An error occurred while fetching data.');
+        else throw new Error('An error occurred while fetching data.');
       })
     );
   }
@@ -49,7 +49,7 @@ export class AuthService {
         this.currentUser = JSON.parse(user);
       }
     }
-    return this.currentUser;
+    return typeof this.currentUser == 'string' ? JSON.parse(this.currentUser) : this.currentUser;
   }
 
   isLoggedIn() {
