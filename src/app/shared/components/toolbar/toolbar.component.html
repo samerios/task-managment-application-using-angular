@@ -1,11 +1,12 @@
-<mat-toolbar>
-  <button mat-icon-button [matMenuTriggerFor]="menu" class="example-icon"
-    aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
+<mat-toolbar style="display: flex;justify-content: space-between">
+  <div style="display: flex;align-items: center;">
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="example-icon"
+      aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
 
-  <span>{{"SYSTEM.APP_NAME.TASK_MANAGER" |translate}}</span>
-  <span class="example-spacer"></span>
+    <span>{{"SYSTEM.APP_NAME.TASK_MANAGER" |translate}}</span>
+  </div>
 
   <mat-menu #menu="matMenu">
     <button *ngFor="let item of menuItemConfig" mat-menu-item (click)="menuItemOnClick(item)">
@@ -14,7 +15,8 @@
     </button>
   </mat-menu>
 
-  <mat-form-field>
+  <mat-form-field style="display: flex;align-items: center;padding-top:20px">
+    <mat-label>{{"SYSTEM.CHOOSE_LANGUAGE" |translate}}</mat-label>
     <mat-select matNativeControl (selectionChange)="languageSelectionChange($event)" [(value)]="selectedLanguage">
       <mat-option *ngFor="let language of languages" [value]="language.option">{{language.label}}</mat-option>
     </mat-select>

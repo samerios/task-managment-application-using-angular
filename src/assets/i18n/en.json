@@ -5,12 +5,17 @@
     },
     "SYSTEM": {
         "LOGOUT": "Logout",
+        "CHOOSE_LANGUAGE": "Choose language",
         "LOGIN_FAILED": {
             "HEADER": "Login failed",
             "CONTENT": "Incorrect Username or password"
         },
         "APP_NAME": {
             "TASK_MANAGER": "Task Manger"
+        },
+        "PAGES": {
+            "DASHBOARD": "Dashboard",
+            "TASKS": "Tasks"
         }
     }
 }

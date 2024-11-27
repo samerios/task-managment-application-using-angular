@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TasksDashboardIndexComponent } from './index/index.component';
+import { TasksComponent } from '../tasks/tasks.component';
 
 const routes: Routes = [
   {
@@ -8,10 +9,12 @@ const routes: Routes = [
   },
   { path: '**', redirectTo: 'dashboard' },
   {
-    path: 'dashboard', children: [
-      { path: '', component: TasksDashboardIndexComponent }
-    ]
+    path: 'dashboard', component: TasksDashboardIndexComponent
+  },
+  {
+    path: 'tasks', component: TasksComponent
   }
+
 ];
 
 @NgModule({

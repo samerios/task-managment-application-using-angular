@@ -5,12 +5,17 @@
     },
     "SYSTEM": {
         "LOGOUT": "התנתק",
+        "CHOOSE_LANGUAGE": "בחר שפה",
         "LOGIN_FAILED": {
             "HEADER": "ההתחברות נכשלה",
             "CONTENT": "שם משתמש או סיסמה שגויים"
         },
         "APP_NAME": {
             "TASK_MANAGER": "ניהול משימות"
+        },
+        "PAGES": {
+            "DASHBOARD": "דשבורד",
+            "TASKS": "משימות"
         }
     }
 }

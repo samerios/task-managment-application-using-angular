@@ -14,8 +14,10 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MatOption } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDividerModule } from '@angular/material/divider';
+import { RouterModule, Routes } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatIconModule,
     MatSelectModule,
     MatOption,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSidenavModule,
+    MatDividerModule,
+    RouterModule
   ],
   exports: [
     MatInputModule,
@@ -53,7 +58,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     SidebarComponent,
     MatSelectModule,
     MatOption,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSidenavModule,
+    MatDividerModule
   ]
 })
 export class SharedModule { }
