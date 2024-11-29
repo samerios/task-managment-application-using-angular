@@ -2,7 +2,7 @@
     <mat-drawer [autoFocus]="true" class="example-sidenav" mode="side">
     </mat-drawer>
     <ng-container *ngFor="let page of pages;let isLast = last">
-        <section (click)="onPageClick(page.link)">
+        <section [routerLink]="page.link">
             <div class="example-button-row">
                 <div class="example-flex-container">
                     <div class="example-button-container">
@@ -17,4 +17,3 @@
         <mat-divider *ngIf="!isLast"></mat-divider>
     </ng-container>
 </mat-drawer-container>
-<router-outlet></router-outlet>

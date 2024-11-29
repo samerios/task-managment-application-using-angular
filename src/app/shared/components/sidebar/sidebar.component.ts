@@ -28,8 +28,4 @@ export class SidebarComponent {
       },
     ];
   }
-
-  onPageClick(link: string) {
-    this.router.navigate([link]);
-  }
 }

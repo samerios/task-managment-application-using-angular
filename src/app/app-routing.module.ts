@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./core/core.module').then(m => m.CoreModule), canActivate: [LoginGuard],canActivateChild:[LoginGuard] },
   { 
     path: 'tasks', 
-    loadChildren: () => import('./task/dashboard/dashboard.module').then(m => m.DashboardModule), 
+    loadChildren: () => import('./task/task.module').then(m => m.TaskModule), 
     canActivate: [AuthGuard], 
     canActivateChild: [AuthGuard] 
   },
