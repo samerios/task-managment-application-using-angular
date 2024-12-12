@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { take } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { User } from 'src/app/models/user';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-index',
@@ -18,34 +20,30 @@ export class LoginIndexComponent implements OnInit {
   isLoading: boolean = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router,
-    private _snackBar: MatSnackBar, private translate: TranslateService) {
+    private _snackBar: MatSnackBar, private translate: TranslateService, private userService: UserService) {
   }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      username: ['', [Validators.required]],
+      emailOrUsername: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
   }
 
   onLogin(): void {
     if (this.form.valid) {
-      this.isLoading = true;
-      // Handle the login logic here
-      setTimeout(() => {
-
-        this.authService.login(this.form.get('username')?.value, this.form.get('password')?.value).pipe(take(1)).subscribe(
-          () => {
-            this.isLoading = false;
-            this.router.navigate(['/tasks']);
-          },
-          error => {
-            this.isLoading = false;
-            this.openSnackBar(this.translate.instant("SYSTEM.LOGIN_FAILED.HEADER"), this.translate.instant("SYSTEM.LOGIN_FAILED.CONTENT"))
-            console.error('Login failed', error);
-          }
-        )
-      }, 1000)
+      this.authService.login(this.form.value).subscribe({
+        next: (response: { token: string, user: User }) => {
+          this.userService.setUser(response)
+          this.isLoading = false;
+          this.router.navigate(['/tasks']);
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.openSnackBar(this.translate.instant("SYSTEM.LOGIN_FAILED.HEADER"), this.translate.instant("SYSTEM.LOGIN_FAILED.CONTENT"))
+          console.error('Login failed', err);
+        },
+      });
     }
   }
 

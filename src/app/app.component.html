@@ -1,8 +1,14 @@
 <!-- app.component.html -->
-<app-toolbar></app-toolbar>
-<div class="container">
-  <app-sidebar></app-sidebar>
-  <div class="content">
-    <router-outlet></router-outlet>
+<div *ngIf="isLoggedIn();else loginPage">
+  <app-toolbar></app-toolbar>
+  <div class="container">
+    <app-sidebar></app-sidebar>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
+
+<ng-template #loginPage>
+  <router-outlet></router-outlet>
+</ng-template>

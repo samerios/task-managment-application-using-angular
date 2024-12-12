@@ -18,6 +18,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
+import { UserService } from '../core/auth/services/user.service';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { RouterModule } from '@angular/router';
     MatSnackBarModule,
     MatSidenavModule,
     MatDividerModule,
-    RouterModule
+    RouterModule,
+    MatButtonToggleModule
   ],
   exports: [
     MatInputModule,
@@ -60,7 +63,9 @@ import { RouterModule } from '@angular/router';
     MatOption,
     MatSnackBarModule,
     MatSidenavModule,
-    MatDividerModule
-  ]
+    MatDividerModule,
+    MatButtonToggleModule
+  ],
+  providers: [UserService]
 })
 export class SharedModule { }

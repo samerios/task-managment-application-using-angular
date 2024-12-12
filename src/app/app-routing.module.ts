@@ -5,12 +5,11 @@ import { LoginGuard } from './shared/guards/login.guard';
 import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
-  { path: 'auth', loadChildren: () => import('./core/core.module').then(m => m.CoreModule), canActivate: [LoginGuard],canActivateChild:[LoginGuard] },
-  { 
-    path: 'tasks', 
-    loadChildren: () => import('./task/task.module').then(m => m.TaskModule), 
-    canActivate: [AuthGuard], 
-    canActivateChild: [AuthGuard] 
+  { path: 'auth', loadChildren: () => import('./core/core.module').then(m => m.CoreModule) },
+  {
+    path: 'tasks',
+    loadChildren: () => import('./task/task.module').then(m => m.TaskModule),
+    canActivate: [AuthGuard]
   },
   { path: '', redirectTo: '/auth', pathMatch: 'full' },
   { path: '**', redirectTo: '/auth' } // Fallback route

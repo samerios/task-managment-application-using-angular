@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/core/auth/services/auth-service.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { take } from 'rxjs';
+import { UserService } from 'src/app/core/auth/services/user.service';
 
 
 interface MenuItemConfig {
@@ -29,7 +30,7 @@ export class ToolbarComponent implements OnInit {
 
   selectedLanguage: 'en' | 'he' = 'en';
 
-  constructor(private authService: AuthService, private translate: TranslateService, private localStorageService: LocalStorageService) {
+  constructor(private authService: AuthService, private translate: TranslateService, private localStorageService: LocalStorageService, private userService: UserService) {
     this.menuItemConfig = [
       { icon: 'logout', name: 'SYSTEM.LOGOUT' }
     ];
@@ -41,7 +42,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedLanguage = this.authService.getCurrentUser()?.userPreferences?.language || 'en';
+    this.selectedLanguage = this.userService.getCurrentUser()?.userPreferences?.language || 'en';
 
     this.languageSelectionChange({ value: this.selectedLanguage });
   }
@@ -49,7 +50,7 @@ export class ToolbarComponent implements OnInit {
   menuItemOnClick(icon: MenuItemConfig) {
     switch (icon.icon) {
       case 'logout':
-        this.authService.getCurrentUser().userPreferences.language = this.selectedLanguage;
+        this.languageSelectionChange({ value: this.selectedLanguage });
         this.authService.logout();
         break;
       default:
@@ -58,13 +59,15 @@ export class ToolbarComponent implements OnInit {
   }
 
   languageSelectionChange(e: any) {
+    let currentUser = this.userService.getCurrentUser();
 
-    let currentUser = typeof this.authService.getCurrentUser() == "string" ? JSON.parse(this.authService.getCurrentUser().toString()) : this.authService.getCurrentUser();
-    currentUser.userPreferences.language = this.selectedLanguage;
-    this.authService.currentUser = currentUser;
+    if (typeof currentUser["userPreferences"] == "string")
+      currentUser.userPreferences = JSON.parse(currentUser.userPreferences);
+    currentUser.userPreferences["language"] = this.selectedLanguage;
+    this.userService.currentUser = currentUser;
     this.localStorageService.setItem('currentUser', JSON.stringify(currentUser))
-    this.authService.updateUserPreferences().pipe(take(1)).subscribe(() => { });
-
+    this.userService.updateUserPreferences().pipe(take(1)).subscribe(() => { });
+    
     this.translate.use(e.value);
     document.documentElement.setAttribute('dir', e.value == 'he' ? 'rtl' : 'ltr');
   }

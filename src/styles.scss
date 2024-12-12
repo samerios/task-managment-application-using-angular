@@ -7,8 +7,6 @@ body {
 
 body {
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-
     background-image: url('assets/images_and_backgrounds/bgImage.png');
     background-size: cover;
     /* Ensures the background covers the entire area */
@@ -18,7 +16,6 @@ body {
     /* Centers the background image */
     background-attachment: fixed;
     /* Keeps the background fixed during scrolling */
-    font-family: Arial, sans-serif;
     /* Example of setting a default font */
     margin: 0;
     /* Removes default margin */

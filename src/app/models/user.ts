@@ -1,13 +1,13 @@
 export class User {
-    id!: number;
+    id: number = 0;
 
-    name!: string;
+    name: string = "";
 
-    email!: string;
+    email: string = "";
 
-    username!: string;
+    username: string = "";
 
-    password!: string;
+    password: string = "";
 
-    userPreferences!: any;
+    userPreferences: string = "";
 }

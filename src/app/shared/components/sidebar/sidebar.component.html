@@ -16,4 +16,8 @@
         </section>
         <mat-divider *ngIf="!isLast"></mat-divider>
     </ng-container>
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle value="bold">Bold</mat-button-toggle>
+    <mat-button-toggle value="italic">Italic</mat-button-toggle>
+  </mat-button-toggle-group>
 </mat-drawer-container>

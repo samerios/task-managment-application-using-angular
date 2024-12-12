@@ -14,7 +14,7 @@ interface Page {
 export class SidebarComponent {
   pages: Page[];
 
-  constructor(private router: Router) {
+  constructor() {
     this.pages = [
       {
         name: 'SYSTEM.PAGES.DASHBOARD',
