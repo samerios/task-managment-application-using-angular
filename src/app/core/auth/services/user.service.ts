@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Route } from '@angular/router';
+import { take } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { environment } from 'src/environments/environment';
@@ -14,7 +14,7 @@ export class UserService {
 
   private readonly api = `${environment.apiUrl}User`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService,) { }
 
   setUser(response: { token: string, user: User }) {
     response.user.userPreferences = JSON.parse(response.user.userPreferences);
@@ -32,6 +32,20 @@ export class UserService {
     }
     console.log(this.currentUser)
     return this.currentUser;
+  }
+
+  userPreferencesChanges(key: string, value: string) {
+    this.currentUser = this.getCurrentUser();
+
+    if (typeof this.currentUser == 'string') this.currentUser = JSON.parse(this.currentUser);
+
+    if (typeof this.currentUser["userPreferences"] == "string")
+      this.currentUser.userPreferences = JSON.parse(this.currentUser.userPreferences);
+
+    this.currentUser.userPreferences[key] = value;
+    this.currentUser = this.currentUser;
+    this.localStorageService.setItem('currentUser', JSON.stringify(this.currentUser))
+    this.updateUserPreferences().pipe(take(1)).subscribe();
   }
 
   updateUserPreferences() {

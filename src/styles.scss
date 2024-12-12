@@ -1,24 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
 
-html,
-body {
+  // Ensure the HTML element also covers the full viewport
+  html,body {
     height: 100%;
-}
-
-body {
+    width: 100%;
     margin: 0;
-    background-image: url('assets/images_and_backgrounds/bgImage.png');
-    background-size: cover;
-    /* Ensures the background covers the entire area */
-    background-repeat: no-repeat;
-    /* Prevents the background from repeating */
-    background-position: center;
-    /* Centers the background image */
-    background-attachment: fixed;
-    /* Keeps the background fixed during scrolling */
-    /* Example of setting a default font */
-    margin: 0;
-    /* Removes default margin */
     padding: 0;
-    /* Removes default padding */
+  }
+  
+.row-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

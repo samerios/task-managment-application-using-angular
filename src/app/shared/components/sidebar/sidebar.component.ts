@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ThemeService } from 'src/app/core/auth/services/theme.service';
+import { UserService } from 'src/app/core/auth/services/user.service';
 
 interface Page {
   name: string,
@@ -11,10 +13,13 @@ interface Page {
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
+
+  themeSelectedValue: 'light' | 'dark' = 'light';
+
   pages: Page[];
 
-  constructor() {
+  constructor(private userService: UserService, private themeService: ThemeService) {
     this.pages = [
       {
         name: 'SYSTEM.PAGES.DASHBOARD',
@@ -27,5 +32,16 @@ export class SidebarComponent {
         iconName: 'task'
       },
     ];
+  }
+
+  ngOnInit(): void {
+    this.themeSelectedValue = this.userService.getCurrentUser()?.userPreferences?.theme || 'light';
+    this.onThemeModeChange({ value: this.themeSelectedValue });
+  }
+
+  onThemeModeChange(themeMode: any) {
+    this.themeSelectedValue = themeMode.value;
+    this.themeService.updateTheme(this.themeSelectedValue)
+    this.userService.userPreferencesChanges('theme', this.themeSelectedValue);
   }
 }

@@ -1,14 +1,16 @@
-<!-- app.component.html -->
-<div *ngIf="isLoggedIn();else loginPage">
-  <app-toolbar></app-toolbar>
-  <div class="container">
-    <app-sidebar></app-sidebar>
-    <div class="content">
-      <router-outlet></router-outlet>
+<div [ngClass]="themeService.themeSignal()">
+  <!-- app.component.html -->
+  <div *ngIf="isLoggedIn();else loginPage">
+    <app-toolbar></app-toolbar>
+    <div class="container">
+      <app-sidebar></app-sidebar>
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
     </div>
   </div>
-</div>
 
-<ng-template #loginPage>
-  <router-outlet></router-outlet>
-</ng-template>
+  <ng-template #loginPage>
+    <router-outlet></router-outlet>
+  </ng-template>
+</div>

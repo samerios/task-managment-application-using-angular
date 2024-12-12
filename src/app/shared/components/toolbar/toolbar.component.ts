@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/core/auth/services/auth-service.service';
-import { LocalStorageService } from '../../services/local-storage.service';
-import { take } from 'rxjs';
 import { UserService } from 'src/app/core/auth/services/user.service';
 
 
@@ -30,7 +28,7 @@ export class ToolbarComponent implements OnInit {
 
   selectedLanguage: 'en' | 'he' = 'en';
 
-  constructor(private authService: AuthService, private translate: TranslateService, private localStorageService: LocalStorageService, private userService: UserService) {
+  constructor(private authService: AuthService, private translate: TranslateService, private userService: UserService) {
     this.menuItemConfig = [
       { icon: 'logout', name: 'SYSTEM.LOGOUT' }
     ];
@@ -43,7 +41,6 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedLanguage = this.userService.getCurrentUser()?.userPreferences?.language || 'en';
-
     this.languageSelectionChange({ value: this.selectedLanguage });
   }
 
@@ -59,15 +56,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   languageSelectionChange(e: any) {
-    let currentUser = this.userService.getCurrentUser();
-
-    if (typeof currentUser["userPreferences"] == "string")
-      currentUser.userPreferences = JSON.parse(currentUser.userPreferences);
-    currentUser.userPreferences["language"] = this.selectedLanguage;
-    this.userService.currentUser = currentUser;
-    this.localStorageService.setItem('currentUser', JSON.stringify(currentUser))
-    this.userService.updateUserPreferences().pipe(take(1)).subscribe(() => { });
-    
+    this.userService.userPreferencesChanges('language', this.selectedLanguage)
     this.translate.use(e.value);
     document.documentElement.setAttribute('dir', e.value == 'he' ? 'rtl' : 'ltr');
   }
