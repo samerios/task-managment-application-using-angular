@@ -1,6 +1,6 @@
 <div [ngClass]="themeService.themeSignal()">
   <!-- app.component.html -->
-  <div *ngIf="isLoggedIn();else loginPage">
+  <div *ngIf="isLoggedIn;else loginPage">
     <app-toolbar></app-toolbar>
     <div class="container">
       <app-sidebar></app-sidebar>

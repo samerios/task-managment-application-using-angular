@@ -14,11 +14,11 @@ export class UserService {
 
   private readonly api = `${environment.apiUrl}User`;
 
-  constructor(private http: HttpClient, private localStorageService: LocalStorageService,) { }
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
   setUser(response: { token: string, user: User }) {
     response.user.userPreferences = JSON.parse(response.user.userPreferences);
-    localStorage.setItem('token', 'token');
+    localStorage.setItem('token', response.token);
     localStorage.setItem('currentUser', JSON.stringify(response.user));
     this.currentUser = response.user;
   }

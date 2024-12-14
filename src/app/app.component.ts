@@ -17,7 +17,7 @@ export class AppComponent {
     this.translate.use(browserLang.match(/en|he/) ? browserLang : 'en');
   }
 
-  public isLoggedIn() {
-    return this.authService.isLoggedIn();
+  get isLoggedIn() {
+    return this.authService.isAuthenticated();
   }
 }

@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, take, tap } from 'rxjs';
-import { User } from 'src/app/models/user';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { environment } from 'src/environments/environment';
 import { UserService } from './user.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +18,11 @@ export class AuthService {
   constructor(private http: HttpClient, private localStorage: LocalStorageService, private router: Router, private userService: UserService) { }
 
   login(credentials: { emailOrUsername: string; password: string }): Observable<any> {
-    return this.http.post(`${this.api}/login`, credentials);
+    return this.http.post<{ token: string }>(`${this.api}/login`, credentials);
   }
 
   logout() {
-    this.userService.updateUserPreferences().pipe(take(1)).subscribe(() => {
-    });
+    this.userService.updateUserPreferences().pipe(take(1)).subscribe();
     this.userService.currentUser = null;
 
     this.localStorage.removeItem('currentUser');
@@ -31,7 +30,17 @@ export class AuthService {
     this.router.navigate(['/auth']);
   }
 
-  isLoggedIn() {
-    return localStorage.getItem('token') != null;
+  isAuthenticated(): boolean {
+    const token = this.getToken();
+    return !!token && !this.isTokenExpired(token);
+  }
+
+  private isTokenExpired(token: string): boolean {
+    const decoded: any = jwtDecode(token);
+    return Date.now() >= decoded.exp * 1000;
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
   }
 }
