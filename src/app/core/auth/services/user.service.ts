@@ -30,7 +30,6 @@ export class UserService {
         this.currentUser = JSON.parse(user);
       }
     }
-    console.log(this.currentUser)
     return this.currentUser;
   }
 

@@ -1,14 +1,67 @@
+// Ensure the HTML element also covers the full viewport
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-  // Ensure the HTML element also covers the full viewport
-  html,body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  
 .row-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  /* Fixed header, flexible content, fixed footer */
+  height: 100vh;
+  /* Full viewport height */
+}
+
+.form-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+}
+
+.form-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+}
+
+.form-content {
+  margin-top: 50px;
+  /* Height of header */
+  margin-bottom: 50px;
+  /* Height of footer */
+  overflow: auto;
+  /* To handle scrolling if content exceeds available space */
+}
+
+.form-header,
+.form-footer {
+  height: 50px;
+  flex-shrink: 0;
+  /* Prevent shrinking */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

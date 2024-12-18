@@ -1,1 +1,8 @@
-<p>tasks works!</p>
+<div class="example-button-row" style=" padding-bottom: 10px;">
+    <button mat-flat-button (click)="openTaskModel($event)">{{"MODULES.TASK.ADD_NEW_TASK" | translate}}</button>
+</div>
+<mat-divider style="padding-bottom:10px"></mat-divider>
+<app-system-table *ngIf="this.tasksDetailsTableConfig" [tableConfig]="this.tasksDetailsTableConfig">
+</app-system-table>
+
+<app-task-model-form #taskModelForm (onCreate)="initData()"></app-task-model-form>

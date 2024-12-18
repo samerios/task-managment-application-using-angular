@@ -12,19 +12,25 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { MatOption } from '@angular/material/core';
+import { MatOption, provideNativeDateAdapter } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 import { UserService } from '../core/auth/services/user.service';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { SystemTableComponents } from './components/system-table/system-table.component';
+import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
     ToolbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    SystemTableComponents
   ],
   imports: [
     CommonModule,
@@ -38,14 +44,18 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatMenuModule,
     MatProgressSpinnerModule,
     MatToolbarModule,
-    MatIconModule,
     MatSelectModule,
     MatOption,
     MatSnackBarModule,
     MatSidenavModule,
     MatDividerModule,
     RouterModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatTableModule,
+    MatIconModule,
+    MatSortModule,
+    MatDialogModule,
+    MatDatepickerModule
   ],
   exports: [
     MatInputModule,
@@ -64,8 +74,14 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatSnackBarModule,
     MatSidenavModule,
     MatDividerModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatTableModule,
+    MatIconModule,
+    MatSortModule,
+    SystemTableComponents,
+    MatDialogModule,
+    MatDatepickerModule
   ],
-  providers: [UserService]
+  providers: [UserService,provideNativeDateAdapter()]
 })
 export class SharedModule { }

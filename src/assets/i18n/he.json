@@ -17,5 +17,19 @@
             "DASHBOARD": "דשבורד",
             "TASKS": "משימות"
         }
+    },
+    "MODULES": {
+        "TASK": {
+            "ADD_NEW_TASK": "הוספת משימה חדשה",
+            "ID": "מזהה משימה",
+            "Title": "כותרת",
+            "Description": "תיאור",
+            "Priority": "עדיפות",
+            "Status": "סטטוס",
+            "Due_date": "תאריך יעד",
+            "ADD_TASK": "הוספת משימה",
+            "ENTER_TASK_TITLE": "כותרת המשימה",
+            "Task_DESCRIPTION": "תיאור המשימה"
+        }
     }
 }

@@ -45,7 +45,7 @@ export class LoginIndexComponent implements OnInit {
             console.error('Login failed', err);
           },
         });
-      }, 1000);
+      }, 100);
     }
   }
 

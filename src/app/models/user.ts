@@ -10,4 +10,6 @@ export class User {
     password: string = "";
 
     userPreferences: string = "";
+
+    role: 'Admin' | 'TeamMember' = 'TeamMember';
 }

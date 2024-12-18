@@ -17,5 +17,19 @@
             "DASHBOARD": "Dashboard",
             "TASKS": "Tasks"
         }
+    },
+    "MODULES": {
+        "TASK": {
+            "ADD_NEW_TASK": "Add New Task",
+            "ID": "ID",
+            "Title": "Title",
+            "Description": "Description",
+            "Priority": "Priority",
+            "Status": "Status",
+            "Due_date": "Due Date",
+            "ADD_TASK": "Add Task",
+            "ENTER_TASK_TITLE": "Enter Task Title",
+            "Task_DESCRIPTION": "Task Description"
+        }
     }
 }
