@@ -6,6 +6,7 @@ import { TableConfig } from 'src/app/models/components-models/table/table-config
 import { ColumnConfig } from 'src/app/models/components-models/table/column-config';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskModelFormComponent } from './task-model-form/task-model-form.component';
+import { UserService } from 'src/app/core/auth/services/user.service';
 
 @Component({
   selector: 'app-tasks',
@@ -23,23 +24,23 @@ export class TasksComponent implements OnInit {
 
   columnsConfig: ColumnConfig[] = [];
 
-  constructor(private taskDetailsService: TaskDetailsService) { }
+  constructor(private taskDetailsService: TaskDetailsService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.columnsConfig = [
-      new ColumnConfig("id", "MODULES.TASK.ID"),
+      new ColumnConfig("id", "MODULES.TASK.ID", 'text', true),
       new ColumnConfig("title", "MODULES.TASK.Title"),
       new ColumnConfig("description", "MODULES.TASK.Description"),
-      new ColumnConfig("priority", "MODULES.TASK.Priority"),
-      new ColumnConfig("status", "MODULES.TASK.Status"),
-      new ColumnConfig("dueDate", "MODULES.TASK.Due_date")
+      new ColumnConfig("priority", "MODULES.TASK.Priority", 'translatedText', true, null, 'MODULES.TASK.PRIORITY'),
+      new ColumnConfig("status", "MODULES.TASK.Status", 'translatedText', true, null, 'MODULES.TASK.STATUS'),
+      new ColumnConfig("dueDate", "MODULES.TASK.Due_date", 'DateTime', true)
     ];
     this.initData();
   }
 
   initData() {
-    this.taskDetailsService.getUserTasks(1).pipe(take(1)).subscribe((data: TaskDetails[]) => {
-      this.tasksDetailsTableConfig = new TableConfig(data, this.columnsConfig, "id");
+    this.taskDetailsService.getUserTasks(this.userService.getCurrentUser.id).pipe(take(1)).subscribe((data: TaskDetails[]) => {
+      this.tasksDetailsTableConfig = new TableConfig(data, this.columnsConfig, "id", false, true);
     })
   }
 

@@ -29,7 +29,17 @@
             "Due_date": "Due Date",
             "ADD_TASK": "Add Task",
             "ENTER_TASK_TITLE": "Enter Task Title",
-            "Task_DESCRIPTION": "Task Description"
+            "Task_DESCRIPTION": "Task Description",
+            "STATUS": {
+                "ToDo": "To Do",
+                "InProgress": "In Progress",
+                "Done": "Done"
+            },
+            "PRIORITY": {
+                "High": "High",
+                "Medium": "Medium",
+                "Low": "Low"
+            }
         }
     }
 }

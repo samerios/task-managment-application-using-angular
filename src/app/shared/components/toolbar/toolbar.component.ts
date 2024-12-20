@@ -40,7 +40,7 @@ export class ToolbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedLanguage = this.userService.getCurrentUser()?.userPreferences?.language || 'en';
+    this.selectedLanguage = this.userService.getCurrentUser?.userPreferences?.language || 'en';
     this.languageSelectionChange({ value: this.selectedLanguage });
   }
 

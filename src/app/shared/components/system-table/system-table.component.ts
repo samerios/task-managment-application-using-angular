@@ -42,7 +42,6 @@ export class SystemTableComponents implements OnInit, AfterViewInit, OnChanges {
   constructor(private _liveAnnouncer: LiveAnnouncer) { }
 
   ngOnInit(): void {
-
     // Call to prepare data function
     this.prepareData(this.tableConfig);
   }
@@ -86,8 +85,8 @@ export class SystemTableComponents implements OnInit, AfterViewInit, OnChanges {
   prepareData(data: TableConfig): void {
 
     // Add action column when table is deletable or editable and if this column not already  exist 
-    if (this.tableConfig.deletable || this.tableConfig.deletable) {
-      let actionColumn = new ColumnConfig("action", "Action");
+    if (this.tableConfig.deletable || this.tableConfig.editable) {
+      let actionColumn = new ColumnConfig("action", "", 'actions');
 
       if (!this.tableConfig.columnConfig.includes(actionColumn)) {
         this.tableConfig.columnConfig.push(actionColumn);

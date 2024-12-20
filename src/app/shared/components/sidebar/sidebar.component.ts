@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ThemeService } from 'src/app/core/auth/services/theme.service';
 import { UserService } from 'src/app/core/auth/services/user.service';
 
@@ -19,6 +18,8 @@ export class SidebarComponent implements OnInit {
 
   pages: Page[];
 
+  selectedPage!: string;
+
   constructor(private userService: UserService, private themeService: ThemeService) {
     this.pages = [
       {
@@ -35,7 +36,9 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.themeSelectedValue = this.userService.getCurrentUser()?.userPreferences?.theme || 'light';
+    this.selectPage(this.selectedPage = localStorage.getItem('selectedPage') || this.pages[0].name);
+
+    this.themeSelectedValue = this.userService.getCurrentUser?.userPreferences?.theme || 'light';
     this.onThemeModeChange({ value: this.themeSelectedValue });
   }
 
@@ -43,5 +46,10 @@ export class SidebarComponent implements OnInit {
     this.themeSelectedValue = themeMode.value;
     this.themeService.updateTheme(this.themeSelectedValue)
     this.userService.userPreferencesChanges('theme', this.themeSelectedValue);
+  }
+
+  selectPage(pageName: string) {
+    this.selectedPage = pageName;
+    localStorage.setItem('selectedPage', this.selectedPage)
   }
 }

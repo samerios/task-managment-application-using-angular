@@ -15,14 +15,14 @@ export class TableConfig {
      */
     constructor(data: any[],
         columnConfig: ColumnConfig[],
-        primaryKeyColumn?: string/* ,
+        primaryKeyColumn?: string,
         deletable?: boolean,
-        editable?: boolean */) {
+        editable?: boolean) {
         this.data = data;
         this.columnConfig = columnConfig;
         this.primaryKeyColumn = primaryKeyColumn;
-       /*  this.deletable = deletable;
-        this.editable = editable; */
+        this.deletable = deletable;
+        this.editable = editable;
     }
 
     /** Table data */

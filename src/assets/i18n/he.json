@@ -29,7 +29,17 @@
             "Due_date": "תאריך יעד",
             "ADD_TASK": "הוספת משימה",
             "ENTER_TASK_TITLE": "כותרת המשימה",
-            "Task_DESCRIPTION": "תיאור המשימה"
+            "Task_DESCRIPTION": "תיאור המשימה",
+            "STATUS": {
+                "ToDo": "לביצוע",
+                "InProgress": "בתהליך",
+                "Done": "הסתיים"
+            },
+            "PRIORITY": {
+                "High": "גבוהה",
+                "Medium": "בינונית",
+                "Low": "נמוכה"
+            }
         }
     }
 }

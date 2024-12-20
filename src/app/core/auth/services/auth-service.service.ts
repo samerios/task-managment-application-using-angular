@@ -23,8 +23,6 @@ export class AuthService {
 
   logout() {
     this.userService.updateUserPreferences().pipe(take(1)).subscribe();
-    this.userService.currentUser = null;
-
     this.localStorage.removeItem('currentUser');
     this.localStorage.removeItem('token');
     this.router.navigate(['/auth']);

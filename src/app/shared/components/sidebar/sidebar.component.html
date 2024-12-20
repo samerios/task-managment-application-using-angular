@@ -2,11 +2,11 @@
     <mat-drawer [autoFocus]="true" class="example-sidenav" mode="side">
     </mat-drawer>
     <ng-container *ngFor="let page of pages;let isLast = last">
-        <section [routerLink]="page.link">
+        <section (click)="selectPage(page.name)" [routerLink]="page.link">
             <div class="example-button-row">
                 <div class="example-flex-container">
                     <div class="example-button-container">
-                        <a mat-fab extended>
+                        <a [ngClass]="{'selected-page': selectedPage === page.name}" mat-fab extended>
                             <mat-icon>{{page.iconName}}</mat-icon>
                             {{page.name | translate}}
                         </a>

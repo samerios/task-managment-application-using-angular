@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class UserService {
 
-  currentUser!: User | any;
+  private currentUser!: User | any;
 
   private readonly api = `${environment.apiUrl}User`;
 
@@ -23,24 +23,21 @@ export class UserService {
     this.currentUser = response.user;
   }
 
-  getCurrentUser() {
-    if (!this.currentUser) {
-      let user = localStorage.getItem('currentUser');
-      if (user) {
-        this.currentUser = JSON.parse(user);
-      }
-    }
+  get getCurrentUser() {
+    if (!this.currentUser)
+      this.currentUser = JSON.parse(localStorage.getItem('currentUser') || '');
+
+    if (typeof this.currentUser == 'string')
+      this.currentUser = JSON.parse(this.currentUser);
+
+    if (typeof this.currentUser?.userPreferences == 'string')
+      this.currentUser.userPreferences = JSON.parse(this.currentUser.userPreferences);
+
     return this.currentUser;
   }
 
   userPreferencesChanges(key: string, value: string) {
-    this.currentUser = this.getCurrentUser();
-
-    if (typeof this.currentUser == 'string') this.currentUser = JSON.parse(this.currentUser);
-
-    if (typeof this.currentUser["userPreferences"] == "string")
-      this.currentUser.userPreferences = JSON.parse(this.currentUser.userPreferences);
-
+    this.currentUser = this.getCurrentUser;
     this.currentUser.userPreferences[key] = value;
     this.currentUser = this.currentUser;
     this.localStorageService.setItem('currentUser', JSON.stringify(this.currentUser))

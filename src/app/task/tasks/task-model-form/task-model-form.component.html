@@ -21,14 +21,16 @@
           <mat-form-field appearance="fill" class="full-width">
             <mat-label>{{'MODULES.TASK.Priority' | translate }}</mat-label>
             <mat-select [placeholder]="'MODULES.TASK.Priority' | translate" formControlName="priority">
-              <mat-option *ngFor="let priority of taskPriorityList" [value]="priority">{{priority}}</mat-option>
+              <mat-option *ngFor="let priority of taskPriorityList"
+                [value]="priority">{{"MODULES.TASK.PRIORITY."+priority | translate}}</mat-option>
             </mat-select>
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="full-width">
             <mat-label>{{'MODULES.TASK.Status' | translate }}</mat-label>
             <mat-select [placeholder]="'MODULES.TASK.Status' | translate" formControlName="status">
-              <mat-option *ngFor="let status of taskStatusList" [value]="status.key">{{status.value}}</mat-option>
+              <mat-option *ngFor="let status of taskStatusList"
+                [value]="status">{{"MODULES.TASK.STATUS."+status | translate}}</mat-option>
             </mat-select>
           </mat-form-field>
 

@@ -14,12 +14,16 @@ export class ColumnConfig {
      */
     constructor(name: string,
         displayName: string,
+        columnType: ColumnType = 'text',
         sortable?: boolean,
-        selectConfig?: SelectConfig,) {
+        selectConfig?: SelectConfig | null,
+        translatedTextKey?: string) {
         this.name = name;
         this.displayName = displayName;
+        this.columnType = columnType;
         this.sortable = sortable;
         this.selectConfig = selectConfig;
+        this.translatedTextKey = translatedTextKey;
     }
 
     /** Column Data Name */
@@ -28,8 +32,15 @@ export class ColumnConfig {
     /** Column display name */
     displayName: string;
 
+    /**The display type of the column */
+    columnType?: ColumnType;
+
     sortable?: boolean;
 
     /** Select config use when the column Consists of select or autocomplete */
-    selectConfig?: SelectConfig;
+    selectConfig?: SelectConfig | null;
+
+    translatedTextKey?: string;
 }
+
+export type ColumnType = 'text' | 'DateTime' | 'translatedText' | 'select' | 'multiSelect' | 'textBesideIcon' | 'icon' | 'actions';

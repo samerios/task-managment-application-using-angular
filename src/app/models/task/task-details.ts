@@ -6,7 +6,7 @@ export interface TaskDetails {
     description?: string;
     userId?: number;
     priority?: 'High' | 'Medium' | 'Low';
-    status?: 'To Do' | 'In Progress' | 'Done';
+    status?: 'ToDo' | 'InProgress' | 'Done';
     dueDate: Date;
     comments?: TaskComments[];
 }

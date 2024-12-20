@@ -26,12 +26,9 @@ export class TaskModelFormComponent implements OnInit {
 
   taskPriorityList = ['High', 'Medium', 'Low'];
 
-  taskStatusList: any = [{ "ToDo": "To Do" }, { "InProgress": "In Progress" }, { "Done": "Done" }];
+  taskStatusList: any = ["ToDo", "InProgress", "Done"];
 
-  constructor(private fb: FormBuilder, private taskDetailService: TaskDetailsService, private user: UserService) {
-    this.taskStatusList = this.taskStatusList.flatMap((status: any) =>
-      Object.entries(status).map(([key, value]) => ({ key, value }))
-    );
+  constructor(private fb: FormBuilder, private taskDetailService: TaskDetailsService, private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -65,7 +62,8 @@ export class TaskModelFormComponent implements OnInit {
       let taskDetails: any = {};
 
       Object.assign(taskDetails, this.form.value);
-      taskDetails.userId = JSON.parse(this.user.getCurrentUser()).id;
+      let user = this.userService.getCurrentUser;
+      taskDetails.userId = user.id;
 
       this.taskDetailService.setTask(taskDetails as TaskDetails).pipe(take(1)).subscribe((response) => {
         this.close();
