@@ -25,6 +25,11 @@ $dark-bg-color: #757070fb;
 $light-primary-color: mat.get-theme-color($light-theme, primary, 50);
 $dark-primary-color: mat.get-theme-color($dark-theme, primary, 50);
 
+body {
+  @include mat.all-component-themes($light-theme);
+  @include mat.all-component-themes($dark-theme);
+}
+
 .light {
   @include mat.all-component-themes($light-theme);
 
@@ -42,7 +47,7 @@ $dark-primary-color: mat.get-theme-color($dark-theme, primary, 50);
 
 .dark {
   @include mat.all-component-themes($dark-theme);
-  color: $light-text-color;
+
   background-color: $dark-bg-color;
 
   .selected-page {

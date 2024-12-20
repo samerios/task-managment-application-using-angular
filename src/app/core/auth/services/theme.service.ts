@@ -12,6 +12,13 @@ export class ThemeService {
   }
 
   updateTheme(theme: string) {
-    this.themeSignal.update(value => theme);
+    this.themeSignal.update(() => theme);
+    if (theme == 'dark') {
+      document.body.classList.remove('light');
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+      document.body.classList.add('light');
+    }
   }
 }
