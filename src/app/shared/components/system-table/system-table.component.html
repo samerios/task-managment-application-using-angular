@@ -17,11 +17,11 @@
                     <p *ngSwitchCase="'DateTime'">{{row[column.name] | date:'dd/MM/yyyy'}}</p>
                     <p *ngSwitchCase="'actions'" class="actions-container">
                         <button *ngIf="this.tableConfig.editable" mat-icon-button color="primary"
-                            (click)="editButtonClicked(row)">
+                            (click)="editButtonClicked($event,row)">
                             <mat-icon>edit</mat-icon>
                         </button>
                         <button *ngIf="this.tableConfig.deletable" mat-icon-button color="warn"
-                            (click)="deleteButtonClicked(row)">
+                            (click)="deleteButtonClicked($event,row)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </p>

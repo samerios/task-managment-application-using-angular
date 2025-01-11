@@ -1,10 +1,19 @@
-import { Component, Input, OnInit, ViewChild, AfterViewInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { TableConfig } from 'src/app/models/components-models/table/table-config';
-import { ColumnConfig } from 'src/app/models/components-models/table/column-config';
+import { ColumnConfig } from '../../models/components-models/table/column-config';
+import { TableConfig } from '../../models/components-models/table/table-config';
 
 /** Table component for show table of data
  *  Inputs: tableConfig (data, columns config...)
@@ -13,10 +22,9 @@ import { ColumnConfig } from 'src/app/models/components-models/table/column-conf
 @Component({
   selector: 'app-system-table',
   templateUrl: './system-table.component.html',
-  styleUrls: ['./system-table.component.scss']
+  styleUrls: ['./system-table.component.scss'],
 })
 export class SystemTableComponents implements OnInit, AfterViewInit, OnChanges {
-
   /**Table config  */
   @Input() tableConfig!: TableConfig;
 
@@ -39,7 +47,7 @@ export class SystemTableComponents implements OnInit, AfterViewInit, OnChanges {
    * Constructor
    * @param _liveAnnouncer Service for sort
    */
-  constructor(private _liveAnnouncer: LiveAnnouncer) { }
+  constructor(private _liveAnnouncer: LiveAnnouncer) {}
 
   ngOnInit(): void {
     // Call to prepare data function
@@ -47,16 +55,16 @@ export class SystemTableComponents implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
     // Check if table config data has changed and if true update the view
-    if (this.tableConfig && changes["tableConfig"]) {
-
-      let oldValue = changes["tableConfig"].previousValue != undefined ?
-        JSON.stringify(changes["tableConfig"].previousValue) : JSON.stringify(changes["tableConfig"].previousValue);
-      let newValue = JSON.stringify(changes["tableConfig"].currentValue);
+    if (this.tableConfig && changes['tableConfig']) {
+      let oldValue =
+        changes['tableConfig'].previousValue != undefined
+          ? JSON.stringify(changes['tableConfig'].previousValue)
+          : JSON.stringify(changes['tableConfig'].previousValue);
+      let newValue = JSON.stringify(changes['tableConfig'].currentValue);
 
       if (oldValue && !oldValue.includes(newValue)) {
-        this.prepareData(changes["tableConfig"].currentValue);
+        this.prepareData(changes['tableConfig'].currentValue);
       }
     }
   }
@@ -83,10 +91,9 @@ export class SystemTableComponents implements OnInit, AfterViewInit, OnChanges {
    * @param data Table config data
    */
   prepareData(data: TableConfig): void {
-
-    // Add action column when table is deletable or editable and if this column not already  exist 
+    // Add action column when table is deletable or editable and if this column not already  exist
     if (this.tableConfig.deletable || this.tableConfig.editable) {
-      let actionColumn = new ColumnConfig("action", "", 'actions');
+      let actionColumn = new ColumnConfig('action', '', 'actions');
 
       if (!this.tableConfig.columnConfig.includes(actionColumn)) {
         this.tableConfig.columnConfig.push(actionColumn);
@@ -95,7 +102,7 @@ export class SystemTableComponents implements OnInit, AfterViewInit, OnChanges {
 
     // Init columns names array id not already initialized
     if (this.columnsNames.length <= 0) {
-      this.tableConfig.columnConfig.forEach(column => {
+      this.tableConfig.columnConfig.forEach((column) => {
         this.columnsNames.push(column.name);
       });
     }
@@ -109,15 +116,15 @@ export class SystemTableComponents implements OnInit, AfterViewInit, OnChanges {
    * Event emitter invoke with selected row when edit button clicked
    * @param row Selected row data
    */
-  editButtonClicked(row: any) {
-    this.editClicked.emit(row);
+  editButtonClicked(e: any, row: any) {
+    this.editClicked.emit({ clickEvent: e, selectedRow: row });
   }
 
   /**
    *  Event emitter invoke with selected row id when delete button clicked
    * @param row Selected row data for get the primary key value
    */
-  deleteButtonClicked(row: any) {
-    this.deleteClicked.emit(row[this.tableConfig.primaryKeyColumn!]);
+  deleteButtonClicked(e: any, row: any) {
+    this.deleteClicked.emit({ clickEvent: e, selectedRow: row });
   }
 }

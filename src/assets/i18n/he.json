@@ -16,6 +16,11 @@
         "PAGES": {
             "DASHBOARD": "דשבורד",
             "TASKS": "משימות"
+        },
+        "BUTTONS": {
+            "SAVE": "שמור",
+            "CLOSE": "סגור",
+            "CANCEL": "ביטול"
         }
     },
     "MODULES": {
@@ -28,6 +33,7 @@
             "Status": "סטטוס",
             "Due_date": "תאריך יעד",
             "ADD_TASK": "הוספת משימה",
+            "EDIT_TASK": "עריכת משימה",
             "ENTER_TASK_TITLE": "כותרת המשימה",
             "Task_DESCRIPTION": "תיאור המשימה",
             "STATUS": {

@@ -1,8 +1,8 @@
-<mat-sidenav-container [ngClass]="class" [hasBackdrop]="true">
+<mat-sidenav-container style="z-index: 1000;" [ngClass]="class" [hasBackdrop]="true">
   <mat-sidenav #sidenav mode="over" position="start" (closed)="close()" [disableClose]="true">
     <div class="form-container">
       <div class="form-header">
-        <h1>{{header | translate}}</h1>
+        <h1>{{header | translate}}{{formStatus=='EDIT' && selectedTaskToEdit ? '('+selectedTaskToEdit.id+')' : ''}}</h1>
       </div>
       <div class="form-content">
 
@@ -18,21 +18,23 @@
               formControlName="description"></textarea>
           </mat-form-field>
 
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>{{'MODULES.TASK.Priority' | translate }}</mat-label>
-            <mat-select [placeholder]="'MODULES.TASK.Priority' | translate" formControlName="priority">
-              <mat-option *ngFor="let priority of taskPriorityList"
-                [value]="priority">{{"MODULES.TASK.PRIORITY."+priority | translate}}</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <div class="row-center form-space">
+            <mat-form-field appearance="fill" class="full-width">
+              <mat-label>{{'MODULES.TASK.Priority' | translate }}</mat-label>
+              <mat-select [placeholder]="'MODULES.TASK.Priority' | translate" formControlName="priority">
+                <mat-option *ngFor="let priority of taskPriorityList"
+                  [value]="priority">{{"MODULES.TASK.PRIORITY."+priority | translate}}</mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>{{'MODULES.TASK.Status' | translate }}</mat-label>
-            <mat-select [placeholder]="'MODULES.TASK.Status' | translate" formControlName="status">
-              <mat-option *ngFor="let status of taskStatusList"
-                [value]="status">{{"MODULES.TASK.STATUS."+status | translate}}</mat-option>
-            </mat-select>
-          </mat-form-field>
+            <mat-form-field appearance="fill" class="full-width">
+              <mat-label>{{'MODULES.TASK.Status' | translate }}</mat-label>
+              <mat-select [placeholder]="'MODULES.TASK.Status' | translate" formControlName="status">
+                <mat-option *ngFor="let status of taskStatusList" [value]="status">{{"MODULES.TASK.STATUS."+status |
+                  translate}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
           <mat-form-field appearance="fill" class="full-width">
             <mat-label>Choose a date</mat-label>
@@ -47,8 +49,9 @@
         </form>
       </div>
       <div class="form-footer">
-        <button mat-button (click)="close()">Close</button>
-        <button type="submit" mat-flat-button [disabled]="form.invalid" (click)="onSave($event)">Save</button>
+        <button mat-button (click)="close()">{{"SYSTEM.BUTTONS.CLOSE" | translate}}</button>
+        <button type="submit" mat-flat-button [disabled]="form.invalid" (click)="onSave($event)">{{"SYSTEM.BUTTONS.SAVE"
+          | translate}}</button>
       </div>
     </div>
   </mat-sidenav>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TaskDetails } from 'src/app/models/task/task-details';
+import { TaskDetails } from 'src/app/shared/models/task/task-details';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -16,7 +16,11 @@ export class TaskDetailsService {
     return this.http.get<{ token: string }>(`${this.api}/TaskDetailsBelongsToUser/${userId}`);
   }
 
-  setTask(taskDetails: TaskDetails) {
+  createTask(taskDetails: TaskDetails) {
     return this.http.post<{ token: string }>(`${this.api}`, taskDetails);
+  }
+
+  putTask(id: number, taskDetails: any) {
+    return this.http.patch<{ token: string }>(`${this.api}/${id}`, taskDetails);
   }
 }

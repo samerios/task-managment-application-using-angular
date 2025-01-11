@@ -35,16 +35,16 @@ body {
 }
 
 .form-footer {
-  position: fixed;
+  /*   position: fixed;
   bottom: 0;
   left: 0;
-  right: 0;
+  right: 0; */
   z-index: 100;
   height: 50px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: max-content;
+  justify-content: flex-end !important;
+  align-self: flex-end;
 }
 
 .form-content {
@@ -54,6 +54,7 @@ body {
   /* Height of footer */
   overflow: auto;
   /* To handle scrolling if content exceeds available space */
+  padding: 0 16px;
 }
 
 .form-header,
@@ -64,4 +65,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-space {
+  gap: 8px;
 }

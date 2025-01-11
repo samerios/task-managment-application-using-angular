@@ -11,11 +11,16 @@
             "CONTENT": "Incorrect Username or password"
         },
         "APP_NAME": {
-            "TASK_MANAGER": "Task Manger"
+            "TASK_MANAGER": "Task Management"
         },
         "PAGES": {
             "DASHBOARD": "Dashboard",
             "TASKS": "Tasks"
+        },
+        "BUTTONS": {
+            "SAVE": "Save",
+            "CLOSE": "Close",
+            "CANCEL": "Cancel"
         }
     },
     "MODULES": {
@@ -28,6 +33,7 @@
             "Status": "Status",
             "Due_date": "Due Date",
             "ADD_TASK": "Add Task",
+            "EDIT_TASK": "Edit Task",
             "ENTER_TASK_TITLE": "Enter Task Title",
             "Task_DESCRIPTION": "Task Description",
             "STATUS": {

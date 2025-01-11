@@ -4,8 +4,8 @@ import { AuthService } from '../../../services/auth-service.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { User } from 'src/app/models/user';
 import { UserService } from '../../../services/user.service';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-index',

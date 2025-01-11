@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, take, tap } from 'rxjs';
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { environment } from 'src/environments/environment';
 import { UserService } from './user.service';
 import { jwtDecode } from 'jwt-decode';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Injectable({
   providedIn: 'root'

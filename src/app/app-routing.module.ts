@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./core/core.module').then(m => m.CoreModule) },
   {
     path: 'tasks',
-    loadChildren: () => import('./task/task.module').then(m => m.TaskModule),
+    loadChildren: () => import('./features/task/task.module').then(m => m.TaskModule),
     canActivate: [AuthGuard]
   },
   { path: '', redirectTo: '/auth', pathMatch: 'full' },

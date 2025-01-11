@@ -10,15 +10,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MatOption, provideNativeDateAdapter } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
-import { UserService } from '../core/auth/services/user.service';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { SystemTableComponents } from './components/system-table/system-table.component';
@@ -27,11 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @NgModule({
-  declarations: [
-    ToolbarComponent,
-    SidebarComponent,
-    SystemTableComponents
-  ],
+  declarations: [SystemTableComponents],
   imports: [
     CommonModule,
     MatInputModule,
@@ -55,7 +48,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatIconModule,
     MatSortModule,
     MatDialogModule,
-    MatDatepickerModule
+    MatDatepickerModule,
   ],
   exports: [
     MatInputModule,
@@ -67,8 +60,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     TranslateModule, // Import the TranslateModule
     MatMenuModule,
     MatProgressSpinnerModule,
-    ToolbarComponent,
-    SidebarComponent,
     MatSelectModule,
     MatOption,
     MatSnackBarModule,
@@ -80,8 +71,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatSortModule,
     SystemTableComponents,
     MatDialogModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatToolbarModule,
   ],
-  providers: [UserService,provideNativeDateAdapter()]
+  providers: [provideNativeDateAdapter()],
 })
-export class SharedModule { }
+export class SharedModule {}

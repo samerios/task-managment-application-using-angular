@@ -2,7 +2,8 @@
     <button mat-flat-button (click)="openTaskModel($event)">{{"MODULES.TASK.ADD_NEW_TASK" | translate}}</button>
 </div>
 <mat-divider style="padding-bottom:10px"></mat-divider>
-<app-system-table *ngIf="this.tasksDetailsTableConfig" [tableConfig]="this.tasksDetailsTableConfig">
+<app-system-table *ngIf="this.tasksDetailsTableConfig" [tableConfig]="this.tasksDetailsTableConfig"
+    (editClicked)="openTaskModel($event.clickEvent,'EDIT',$event.selectedRow)">
 </app-system-table>
 
 <app-task-model-form #taskModelForm (onCreate)="initData()"></app-task-model-form>
