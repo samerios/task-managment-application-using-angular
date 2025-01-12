@@ -13,10 +13,10 @@ import {
 } from '@angular/forms';
 import { MatSidenav } from '@angular/material/sidenav';
 import { TaskDetailsService } from '../../services/task-details.service';
-import { UserService } from 'src/app/core/auth/services/user.service';
 import { take } from 'rxjs';
 import { FormStatus } from 'src/app/shared/models/components-models/model-form-configuration';
 import { TaskDetails } from 'src/app/shared/models/task/task-details';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-task-model-form',

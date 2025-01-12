@@ -1,6 +1,6 @@
-<div class="custom-dark-theme login-container">
-    <mat-card class="login-card">
-        <h1>Login</h1>
+<div class="custom-dark-theme flex justify-center items-center h-dvh">
+    <mat-card class="p-5 w-100">
+        <h1 class="text-xl font-bold pb-5">Login</h1>
         <form [formGroup]="form" (ngSubmit)="onLogin()">
             <mat-form-field appearance="fill" class="full-width">
                 <mat-label>{{'LOGIN.USERNAME' | translate }}</mat-label>
@@ -12,7 +12,7 @@
             </mat-form-field>
             <button mat-raised-button color="primary" class="full-width">Login</button>
         </form>
-        <div *ngIf="isLoading" class="spinner-container">
+        <div *ngIf="isLoading" class="flex justify-center items-center mt-5">
             <mat-spinner [diameter]="25"></mat-spinner>
         </div>
     </mat-card>

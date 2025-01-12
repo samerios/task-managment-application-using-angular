@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { TaskDetailsService } from '../services/task-details.service';
 import { take } from 'rxjs';
 import { TaskModelFormComponent } from './task-model-form/task-model-form.component';
-import { UserService } from 'src/app/core/auth/services/user.service';
 import { FormStatus } from 'src/app/shared/models/components-models/model-form-configuration';
 import { ColumnConfig } from 'src/app/shared/models/components-models/table/column-config';
 import { TableConfig } from 'src/app/shared/models/components-models/table/table-config';
 import { TaskDetails } from 'src/app/shared/models/task/task-details';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-tasks',

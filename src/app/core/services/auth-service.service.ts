@@ -6,18 +6,25 @@ import { Observable, take, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UserService } from './user.service';
 import { jwtDecode } from 'jwt-decode';
-import { LocalStorageService } from '../../services/local-storage.service';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   private readonly api = `${environment.apiUrl}Auth`;
 
-  constructor(private http: HttpClient, private localStorage: LocalStorageService, private router: Router, private userService: UserService) { }
+  constructor(
+    private http: HttpClient,
+    private localStorage: LocalStorageService,
+    private router: Router,
+    private userService: UserService
+  ) {}
 
-  login(credentials: { emailOrUsername: string; password: string }): Observable<any> {
+  login(credentials: {
+    emailOrUsername: string;
+    password: string;
+  }): Observable<any> {
     return this.http.post<{ token: string }>(`${this.api}/login`, credentials);
   }
 

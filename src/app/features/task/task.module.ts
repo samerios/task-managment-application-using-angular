@@ -6,20 +6,14 @@ import { TasksDashboardIndexComponent } from './dashboard/index/index.component'
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TasksComponent } from './tasks/tasks.component';
 import { TaskModelFormComponent } from './tasks/task-model-form/task-model-form.component';
-import { CoreModule } from 'src/app/core/core.module';
-
+import { AccountModule } from '../account/account.module';
 
 @NgModule({
-    declarations: [
-        TasksDashboardIndexComponent,
-        TasksComponent,
-        TaskModelFormComponent
-    ],
-    imports: [
-        CommonModule,
-        TaskRoutingModule,
-        SharedModule,
-        CoreModule
-    ]
+  declarations: [
+    TasksDashboardIndexComponent,
+    TasksComponent,
+    TaskModelFormComponent,
+  ],
+  imports: [CommonModule, TaskRoutingModule, SharedModule, AccountModule],
 })
-export class TaskModule { }
+export class TaskModule {}

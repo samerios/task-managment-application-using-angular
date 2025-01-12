@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { take } from 'rxjs';
 import { User } from 'src/app/shared/models/user';
 import { environment } from 'src/environments/environment';
-import { LocalStorageService } from '../../services/local-storage.service';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root',
