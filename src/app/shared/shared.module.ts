@@ -22,9 +22,10 @@ import { SystemTableComponents } from './components/system-table/system-table.co
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { SystemInputComponent } from './components/system-input/system-input.component';
 
 @NgModule({
-  declarations: [SystemTableComponents],
+  declarations: [SystemTableComponents, SystemInputComponent],
   imports: [
     CommonModule,
     MatInputModule,
@@ -73,6 +74,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatDialogModule,
     MatDatepickerModule,
     MatToolbarModule,
+    SystemInputComponent
   ],
   providers: [provideNativeDateAdapter()],
 })

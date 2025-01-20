@@ -1,5 +1,5 @@
-<section class="table-container mat-elevation-z8" tabindex="0">
-    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+<section class="mat-elevation-z8 w-full" style="height: calc(100% - 38px);" tabindex="0">
+    <table mat-table [dataSource]="dataSource" class="w-full" matSort (matSortChange)="announceSortChange($event)">
         <ng-container *ngFor="let column of this.tableConfig.columnConfig" matColumnDef={{column.name}}>
             <div *ngIf="column.sortable;else nonSortableColumn">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by {{column.name}}">
@@ -15,7 +15,7 @@
                 <div [ngSwitch]="column.columnType">
                     <p *ngSwitchCase="'translatedText'">{{column.translatedTextKey+'.'+ row[column.name]|translate}}</p>
                     <p *ngSwitchCase="'DateTime'">{{row[column.name] | date:'dd/MM/yyyy'}}</p>
-                    <p *ngSwitchCase="'actions'" class="actions-container">
+                    <p *ngSwitchCase="'actions'" class="flex">
                         <button *ngIf="this.tableConfig.editable" mat-icon-button color="primary"
                             (click)="editButtonClicked($event,row)">
                             <mat-icon>edit</mat-icon>

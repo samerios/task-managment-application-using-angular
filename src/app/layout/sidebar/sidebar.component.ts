@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from 'src/app/core/services/theme.service';
-import { UserService } from 'src/app/core/services/user.service';
+import { UserPreferencesService } from 'src/app/core/services/user-preferences.service';
 
 interface Page {
   name: string;
@@ -20,7 +20,7 @@ export class SidebarComponent implements OnInit {
   selectedPage!: string;
 
   constructor(
-    private userService: UserService,
+    private userPreferencesService: UserPreferencesService,
     private themeService: ThemeService
   ) {
     this.pages = [
@@ -44,14 +44,15 @@ export class SidebarComponent implements OnInit {
     );
 
     this.themeSelectedValue =
-      this.userService.getCurrentUser?.userPreferences?.theme || 'light';
+      this.userPreferencesService.userPreferences.theme || 'light';
     this.onThemeModeChange({ value: this.themeSelectedValue });
   }
 
   onThemeModeChange(themeMode: any) {
     this.themeSelectedValue = themeMode.value;
     this.themeService.updateTheme(this.themeSelectedValue);
-    this.userService.userPreferencesChanges('theme', this.themeSelectedValue);
+    this.userPreferencesService.userPreferences.theme = this.themeSelectedValue;
+    this.userPreferencesService.userPreferencesChanges();
   }
 
   selectPage(pageName: string) {

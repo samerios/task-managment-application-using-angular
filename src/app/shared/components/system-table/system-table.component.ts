@@ -92,7 +92,12 @@ export class SystemTableComponents implements OnInit, AfterViewInit, OnChanges {
    */
   prepareData(data: TableConfig): void {
     // Add action column when table is deletable or editable and if this column not already  exist
-    if (this.tableConfig.deletable || this.tableConfig.editable) {
+    if (
+      (this.tableConfig.deletable || this.tableConfig.editable) &&
+      !this.tableConfig.columnConfig.find(
+        (x: ColumnConfig) => x.columnType == 'actions'
+      )
+    ) {
       let actionColumn = new ColumnConfig('action', '', 'actions');
 
       if (!this.tableConfig.columnConfig.includes(actionColumn)) {

@@ -1,15 +1,13 @@
-export class User {
-    id: number = 0;
+export interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  roles: 'Admin' | 'TeamMember';
+  userPreferences: string;
+}
 
-    name: string = "";
-
-    email: string = "";
-
-    username: string = "";
-
-    password: string = "";
-
-    userPreferences: string = "";
-
-    role: 'Admin' | 'TeamMember' = 'TeamMember';
+export interface UserPreferences {
+  language: 'en' | 'he';
+  theme: 'light' | 'dark';
 }

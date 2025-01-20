@@ -1,0 +1,9 @@
+::ng-deep .mat-mdc-menu-panel {
+    .mat-mdc-menu-content {
+        min-width: 200px;
+
+        .mat-mdc-menu-item {
+            width: 100%;
+        }
+    }
+}

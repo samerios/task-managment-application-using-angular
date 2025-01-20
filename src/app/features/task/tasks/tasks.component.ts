@@ -6,7 +6,7 @@ import { FormStatus } from 'src/app/shared/models/components-models/model-form-c
 import { ColumnConfig } from 'src/app/shared/models/components-models/table/column-config';
 import { TableConfig } from 'src/app/shared/models/components-models/table/table-config';
 import { TaskDetails } from 'src/app/shared/models/task/task-details';
-import { UserService } from 'src/app/core/services/user.service';
+import { AccountService } from 'src/app/core/services/account.service';
 
 @Component({
   selector: 'app-tasks',
@@ -25,7 +25,7 @@ export class TasksComponent implements OnInit {
 
   constructor(
     private taskDetailsService: TaskDetailsService,
-    private userService: UserService
+    private accountService:AccountService
   ) {}
 
   ngOnInit(): void {
@@ -56,7 +56,7 @@ export class TasksComponent implements OnInit {
 
   initData() {
     this.taskDetailsService
-      .getUserTasks(this.userService.getCurrentUser.id)
+      .getUserTasks(this.accountService.getCurrentUser!.id)
       .pipe(take(1))
       .subscribe((data: TaskDetails[]) => {
         this.tasksDetailsTableConfig = new TableConfig(

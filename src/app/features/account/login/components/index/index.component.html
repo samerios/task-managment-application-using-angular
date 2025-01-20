@@ -1,19 +1,15 @@
 <div class="custom-dark-theme flex justify-center items-center h-dvh">
-    <mat-card class="p-5 w-100">
-        <h1 class="text-xl font-bold pb-5">Login</h1>
-        <form [formGroup]="form" (ngSubmit)="onLogin()">
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>{{'LOGIN.USERNAME' | translate }}</mat-label>
-                <input matInput placeholder="emailOrUsername" formControlName="emailOrUsername">
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>{{'LOGIN.PASSWORD' | translate }}</mat-label>
-                <input matInput type="password" placeholder="Password" formControlName="password">
-            </mat-form-field>
-            <button mat-raised-button color="primary" class="full-width">Login</button>
+    <mat-card class="max-w-lg mx-auto mt-32 p-8 bg-white">
+        <h1 class="text-xl font-bold pb-5">System login </h1>
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <app-system-input label="LOGIN.USERNAME" type="email" formControlName="email" appearance="outline"
+                containerClasses="w-full mb-4"></app-system-input>
+            <app-system-input label="LOGIN.PASSWORD" type="password" formControlName="password" appearance="outline"
+                containerClasses="w-full mb-4"></app-system-input>
+            <button mat-flat-button type="submit" class="w-full py-2">Sign in</button>
         </form>
-        <div *ngIf="isLoading" class="flex justify-center items-center mt-5">
+        <!--         <div *ngIf="isLoading" class="flex justify-center items-center mt-5">
             <mat-spinner [diameter]="25"></mat-spinner>
-        </div>
+        </div> -->
     </mat-card>
 </div>

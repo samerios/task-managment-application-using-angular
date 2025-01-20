@@ -1,11 +1,11 @@
 // app-routing.module.ts
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './core/guards/auth.guard';
+import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'auth',
+    path: 'account',
     loadChildren: () =>
       import('./features/account/account.module').then((m) => m.AccountModule),
   },
@@ -13,10 +13,10 @@ const routes: Routes = [
     path: 'tasks',
     loadChildren: () =>
       import('./features/task/task.module').then((m) => m.TaskModule),
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
   },
-  { path: '', redirectTo: '/auth', pathMatch: 'full' },
-  { path: '**', redirectTo: '/auth' }, // Fallback route
+  { path: '', redirectTo: '/account', pathMatch: 'full' },
+  { path: '**', redirectTo: '/account' }, // Fallback route
 ];
 
 @NgModule({

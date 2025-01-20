@@ -79,3 +79,11 @@ body {
 .form-space {
   gap: 8px;
 }
+
+.mdc-notched-outline__notch {
+  border-right-style: none !important
+}
+
+.inline-grid-ov {
+  display: inline-grid !important;
+}

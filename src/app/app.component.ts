@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from './core/services/auth-service.service';
+import { AccountService } from './core/services/account.service';
 import { ThemeService } from './core/services/theme.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ import { ThemeService } from './core/services/theme.service';
 export class AppComponent {
   constructor(
     private translate: TranslateService,
-    private authService: AuthService,
+    public accountService: AccountService,
     public themeService: ThemeService
   ) {
     this.translate.addLangs(['en', 'he']);
@@ -19,9 +20,9 @@ export class AppComponent {
 
     let browserLang = this.translate.getBrowserLang() || 'en';
     this.translate.use(browserLang.match(/en|he/) ? browserLang : 'en');
-  }
 
-  get isLoggedIn() {
-    return this.authService.isAuthenticated();
+    if (accountService.getAuthState() && !accountService.getCurrentUser) {
+      this.accountService.getUserInfo().pipe(take(1)).subscribe();
+    }
   }
 }

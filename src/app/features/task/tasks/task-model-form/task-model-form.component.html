@@ -5,52 +5,27 @@
         <h1>{{header | translate}}{{formStatus=='EDIT' && selectedTaskToEdit ? '('+selectedTaskToEdit.id+')' : ''}}</h1>
       </div>
       <div class="form-content">
+        <form [formGroup]="taskForm" (ngSubmit)="onSave($event)">
+          <app-system-input label="MODULES.TASK.Title" type="text" formControlName="title"
+            containerClasses="w-full"></app-system-input>
+          <app-system-input label="MODULES.TASK.Description" type="textarea" formControlName="description"
+            containerClasses="w-full"></app-system-input>
 
-        <form [formGroup]="form" (ngSubmit)="onSave($event)">
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>{{'MODULES.TASK.Title' | translate }}</mat-label>
-            <input matInput [placeholder]="'MODULES.TASK.ENTER_TASK_TITLE' | translate" formControlName="title">
-          </mat-form-field>
-
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>{{'MODULES.TASK.Description' | translate }}</mat-label>
-            <textarea matInput [placeholder]="'MODULES.TASK.Task_DESCRIPTION' | translate"
-              formControlName="description"></textarea>
-          </mat-form-field>
-
-          <div class="row-center form-space">
-            <mat-form-field appearance="fill" class="full-width">
-              <mat-label>{{'MODULES.TASK.Priority' | translate }}</mat-label>
-              <mat-select [placeholder]="'MODULES.TASK.Priority' | translate" formControlName="priority">
-                <mat-option *ngFor="let priority of taskPriorityList"
-                  [value]="priority">{{"MODULES.TASK.PRIORITY."+priority | translate}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill" class="full-width">
-              <mat-label>{{'MODULES.TASK.Status' | translate }}</mat-label>
-              <mat-select [placeholder]="'MODULES.TASK.Status' | translate" formControlName="status">
-                <mat-option *ngFor="let status of taskStatusList" [value]="status">{{"MODULES.TASK.STATUS."+status |
-                  translate}}</mat-option>
-              </mat-select>
-            </mat-form-field>
+          <div class="flex justify-between gap-2 w-full">
+            <app-system-input label="MODULES.TASK.Priority" type="dropdown" formControlName="priority"
+              [dropDownConfig]="{data:taskPriorityList,translateKey:'MODULES.TASK.PRIORITY'}"
+              containerClasses="w-full inline-grid-ov"></app-system-input>
+            <app-system-input label="MODULES.TASK.Status" type="dropdown" formControlName="status"
+              [dropDownConfig]="{data:taskStatusList,translateKey:'MODULES.TASK.STATUS'}"
+              containerClasses="w-full inline-grid-ov"></app-system-input>
           </div>
-
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Choose a date</mat-label>
-            <input formControlName="dueDate" matInput [matDatepicker]="picker">
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker">
-              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-            </mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-
+          <app-system-input label="Choose a date" type="date" formControlName="dueDate"
+            containerClasses="w-full"></app-system-input>
         </form>
       </div>
       <div class="form-footer">
         <button mat-button (click)="close()">{{"SYSTEM.BUTTONS.CLOSE" | translate}}</button>
-        <button type="submit" mat-flat-button [disabled]="form.invalid" (click)="onSave($event)">{{"SYSTEM.BUTTONS.SAVE"
+        <button type="submit" mat-flat-button [disabled]="taskForm.invalid" (click)="onSave($event)">{{"SYSTEM.BUTTONS.SAVE"
           | translate}}</button>
       </div>
     </div>

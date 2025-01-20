@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from 'src/app/core/services/auth-service.service';
-import { UserService } from 'src/app/core/services/user.service';
+import { take } from 'rxjs';
+import { AccountService } from 'src/app/core/services/account.service';
+import { UserPreferencesService } from 'src/app/core/services/user-preferences.service';
 
 interface MenuItemConfig {
   icon: string;
@@ -26,9 +27,9 @@ export class ToolbarComponent implements OnInit {
   selectedLanguage: 'en' | 'he' = 'en';
 
   constructor(
-    private authService: AuthService,
     private translate: TranslateService,
-    private userService: UserService
+    private userPreferencesService: UserPreferencesService,
+    public accountService: AccountService
   ) {
     this.menuItemConfig = [{ icon: 'logout', name: 'SYSTEM.LOGOUT' }];
 
@@ -40,7 +41,7 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedLanguage =
-      this.userService.getCurrentUser?.userPreferences?.language || 'en';
+      this.userPreferencesService?.userPreferences?.language || 'en';
     this.languageSelectionChange({ value: this.selectedLanguage });
   }
 
@@ -48,7 +49,7 @@ export class ToolbarComponent implements OnInit {
     switch (icon.icon) {
       case 'logout':
         this.languageSelectionChange({ value: this.selectedLanguage });
-        this.authService.logout();
+        this.accountService.logout().pipe(take(1)).subscribe();
         break;
       default:
         break;
@@ -56,7 +57,10 @@ export class ToolbarComponent implements OnInit {
   }
 
   languageSelectionChange(e: any) {
-    this.userService.userPreferencesChanges('language', this.selectedLanguage);
+    this.userPreferencesService.userPreferences.language =
+      this.selectedLanguage;
+    this.userPreferencesService.userPreferencesChanges();
+
     this.translate.use(e.value);
     document.documentElement.setAttribute(
       'dir',

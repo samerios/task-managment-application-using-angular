@@ -28,6 +28,15 @@ $dark-primary-color: mat.get-theme-color($dark-theme, primary, 50);
 body {
   @include mat.all-component-themes($light-theme);
   @include mat.all-component-themes($dark-theme);
+
+
+  // override the button styles
+  .mdc-button,
+  .mdc-raised-button,
+  .mdc-stroked-button,
+  .mdc-flat-button {
+    @apply rounded-md
+  }
 }
 
 .light {
@@ -53,4 +62,8 @@ body {
   .selected-page {
     background-color: rgba($color: $dark-primary-color, $alpha: 1) // Use shade 500
   }
+}
+
+button.match-input-height {
+  height: var(--mat-form-field-container-height) !important;
 }

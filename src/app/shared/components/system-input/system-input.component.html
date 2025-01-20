@@ -1,0 +1,50 @@
+@if(type!='date'){
+<mat-form-field [appearance]="appearance" [ngClass]="containerClasses">
+    <mat-label>{{label | translate}}</mat-label>
+    @switch (type) {
+    @case('text') {
+    <input [formControl]="control" type={{type}} placeholder={{label|translate}} matInput />
+    }
+    @case ('textarea') {
+    <textarea [formControl]="control" placeholder={{label|translate}} matInput></textarea>
+    }
+    @case('email') {
+    <input [formControl]="control" type={{type}} placeholder='name@example.com' matInput />
+    }
+    @case('password') {
+    <input [formControl]="control" type={{type}} placeholder='Password' matInput />
+    }
+    @case ('dropdown') {
+    <mat-select [formControl]="control" placeholder={{label|translate}}>
+        @for (val of dropDownConfig?.data; track $index) {
+        <mat-option [value]="val">
+            @if(dropDownConfig?.translateKey){
+            {{dropDownConfig!.translateKey+ "."+val |translate}}
+            }
+            @else {
+            {{val}}
+            }
+        </mat-option>
+        }
+    </mat-select>
+    }
+    @default {
+    <p>No type was selected</p>
+    }
+    }
+    @if (control.hasError('required')) {
+    <mat-error>{{label | translate}} is required</mat-error>
+    }
+</mat-form-field>
+}
+@else{
+<mat-form-field [appearance]="appearance" [ngClass]="containerClasses">
+    <mat-label>{{label}}</mat-label>
+    <input [formControl]="control" matInput [matDatepicker]="picker">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker">
+        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+    </mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+}

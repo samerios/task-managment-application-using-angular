@@ -3,10 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { User } from 'src/app/shared/models/user';
-import { AuthService } from 'src/app/core/services/auth-service.service';
-import { UserService } from 'src/app/core/services/user.service';
+import { AccountService } from 'src/app/core/services/account.service';
 import { take } from 'rxjs';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-index',
@@ -14,39 +13,41 @@ import { take } from 'rxjs';
   styleUrls: ['./index.component.scss'],
 })
 export class LoginIndexComponent implements OnInit {
-  form!: FormGroup;
+  loginForm!: FormGroup;
 
   isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
     private router: Router,
     private _snackBar: MatSnackBar,
     private translate: TranslateService,
-    private userService: UserService
+    private accountService: AccountService
   ) {}
 
   ngOnInit(): void {
-    this.form = this.fb.group({
-      emailOrUsername: ['', [Validators.required]],
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
   }
 
   onLogin(): void {
-    if (this.form.valid) {
-      this.isLoading = true;
-      setTimeout(() => {
-        this.authService
-          .login(this.form.value)
-          .pipe(take(1))
-          .subscribe({
-            next: (response: { token: string; user: User }) => {
-              this.userService.setUser(response);
+    if (this.loginForm.valid) {
+      // this.isLoading = true;
+      // setTimeout(() => {
+      this.accountService
+        .login(this.loginForm.value)
+        .pipe(take(1))
+        .subscribe({
+          next: () => {
+            this.isLoading = false;
+            this.accountService.getUserInfo().pipe(take(1)).subscribe();
+            this.router.navigate(['/tasks']);
+            /*              this.userService.setUser(response);
               this.isLoading = false;
-              this.router.navigate(['/tasks']);
-            },
+              this.router.navigate(['/tasks']); */
+          } /* ,
             error: (err) => {
               this.isLoading = false;
               this.openSnackBar(
@@ -54,9 +55,9 @@ export class LoginIndexComponent implements OnInit {
                 this.translate.instant('SYSTEM.LOGIN_FAILED.CONTENT')
               );
               console.error('Login failed', err);
-            },
-          });
-      }, 100);
+            }, */,
+        });
+      //  }, 100);
     }
   }
 

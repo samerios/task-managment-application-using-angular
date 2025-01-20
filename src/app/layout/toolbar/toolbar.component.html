@@ -1,21 +1,20 @@
-<mat-toolbar style="display: flex;justify-content: space-between">
-  <div style="display: flex;align-items: center;">
-    <button mat-icon-button [matMenuTriggerFor]="menu" class="example-icon"
-      aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
+<mat-toolbar class="flex justify-between">
+  <div class="flex items-center">
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>arrow_drop_down</mat-icon>
+      <span>{{accountService.getCurrentUser?.email}}</span>
     </button>
-
-    <span>{{"SYSTEM.APP_NAME.TASK_MANAGER" |translate}}</span>
+    <span>| {{"SYSTEM.APP_NAME.TASK_MANAGER" |translate}}</span>
   </div>
 
   <mat-menu #menu="matMenu">
-    <button *ngFor="let item of menuItemConfig" mat-menu-item (click)="menuItemOnClick(item)">
+    <button mat-menu-item *ngFor="let item of menuItemConfig" (click)="menuItemOnClick(item)">
       <mat-icon>{{item.icon}}</mat-icon>
-      <span>{{item.name | translate}}</span>
+      <span class="text-xsm">{{item.name | translate}}</span>
     </button>
   </mat-menu>
 
-  <mat-form-field style="display: flex;align-items: center;padding-top:20px">
+  <mat-form-field class="flex items-center pt-5">
     <mat-label>{{"SYSTEM.CHOOSE_LANGUAGE" |translate}}</mat-label>
     <mat-select matNativeControl (selectionChange)="languageSelectionChange($event)" [(value)]="selectedLanguage">
       <mat-option *ngFor="let language of languages" [value]="language.option">{{language.label}}</mat-option>

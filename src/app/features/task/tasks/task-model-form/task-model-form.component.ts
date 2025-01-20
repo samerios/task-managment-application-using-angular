@@ -15,8 +15,11 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { TaskDetailsService } from '../../services/task-details.service';
 import { take } from 'rxjs';
 import { FormStatus } from 'src/app/shared/models/components-models/model-form-configuration';
-import { TaskDetails } from 'src/app/shared/models/task/task-details';
-import { UserService } from 'src/app/core/services/user.service';
+import {
+  CreateTaskDetails,
+  TaskDetails,
+} from 'src/app/shared/models/task/task-details';
+import { AccountService } from 'src/app/core/services/account.service';
 
 @Component({
   selector: 'app-task-model-form',
@@ -28,7 +31,7 @@ export class TaskModelFormComponent implements OnInit {
 
   @Output() onCreate = new EventEmitter();
 
-  form!: FormGroup;
+  taskForm!: FormGroup;
 
   formStatus: FormStatus = 'ADD';
 
@@ -38,16 +41,16 @@ export class TaskModelFormComponent implements OnInit {
 
   taskStatusList: any = ['ToDo', 'InProgress', 'Done'];
 
-  selectedTaskToEdit!: TaskDetails | null;
+  selectedTaskToEdit: TaskDetails | null = null;
 
   constructor(
     private fb: FormBuilder,
     private taskDetailService: TaskDetailsService,
-    private userService: UserService
+    private accountService: AccountService
   ) {}
 
   ngOnInit(): void {
-    this.form = this.fb.group({
+    this.taskForm = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(200)]],
       description: [''],
       priority: ['Low', [Validators.required]],
@@ -65,7 +68,7 @@ export class TaskModelFormComponent implements OnInit {
   open(formStatus: FormStatus = 'ADD', selectedRow: any) {
     if (formStatus == 'EDIT' && selectedRow != null) {
       this.selectedTaskToEdit = selectedRow;
-      this.form.patchValue(selectedRow);
+      this.taskForm.patchValue(selectedRow);
     }
 
     this.formStatus = formStatus;
@@ -79,43 +82,57 @@ export class TaskModelFormComponent implements OnInit {
     this.sidenavRef.close();
   }
 
-  getChangedFields(): any {
-    let changes: any[] = [];
+  getDirtyValues(form: FormGroup): any {
+    const dirtyValues: any = {};
 
-    Object.keys(this.form.controls).forEach((key) => {
-      const control = this.form.get(key);
-      if (control && control.dirty) {
-        changes.push({ op: 'replace', path: `/${key}`, value: control.value });
+    Object.keys(form.controls).forEach((key) => {
+      const control = form.get(key);
+
+      if (control instanceof FormGroup) {
+        // Recursively call for nested FormGroups
+        const nestedDirtyValues = this.getDirtyValues(control);
+        if (Object.keys(nestedDirtyValues).length > 0) {
+          dirtyValues[key] = nestedDirtyValues;
+        }
+      } else if (control?.dirty) {
+        // Include only dirty controls
+        dirtyValues[key] = control.value;
       }
     });
-    return changes;
+
+    return dirtyValues;
   }
 
-  onSave(e: any) {
+  onSave(e: Event) {
     e.preventDefault();
-    if (this.form.valid) {
+
+    if (this.taskForm.valid) {
       let taskDetails: any = {};
 
       Object.assign(
         taskDetails,
-        this.formStatus === 'ADD' ? this.form.value : this.getChangedFields()
+        this.formStatus === 'ADD'
+          ? this.taskForm.value
+          : this.getDirtyValues(this.taskForm)
       );
 
       if (this.formStatus == 'ADD') {
-        let user = this.userService.getCurrentUser;
-        taskDetails.userId = user.id;
+        let user = this.accountService.getCurrentUser;
+        taskDetails.userId = user?.id;
         this.taskDetailService
-          .createTask(taskDetails as TaskDetails)
+          .createTask(taskDetails as CreateTaskDetails)
           .pipe(take(1))
-          .subscribe((response) => {
+          .subscribe(() => {
             this.close();
             this.onCreate.emit();
           });
       } else {
+        taskDetails.id = this.selectedTaskToEdit!.id;
+
         this.taskDetailService
-          .putTask(this.selectedTaskToEdit?.id || 0, taskDetails)
+          .putTask(this.selectedTaskToEdit!.id, taskDetails)
           .pipe(take(1))
-          .subscribe((response) => {
+          .subscribe(() => {
             this.close();
             this.onCreate.emit();
           });

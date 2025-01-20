@@ -13,17 +13,18 @@ import {
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared/shared.module';
 import { RouterModule } from '@angular/router';
-import { SidebarComponent } from './layout/sidebar/sidebar.component';
-import { ToolbarComponent } from './layout/toolbar/toolbar.component';
-import { JwtInterceptor } from './core/services/JwtInterceptor.service';
 import { AccountModule } from './features/account/account.module';
+import { ToolbarComponent } from './layout/toolbar/toolbar.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, SidebarComponent, ToolbarComponent],
+  declarations: [AppComponent, ToolbarComponent, SidebarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -41,7 +42,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     AccountModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true, // Allows multiple interceptors
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true, // Allows multiple interceptors
+    },
   ],
   bootstrap: [AppComponent],
 })
