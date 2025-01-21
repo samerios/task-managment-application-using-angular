@@ -130,6 +130,6 @@ export class SystemTableComponents implements OnInit, AfterViewInit, OnChanges {
    * @param row Selected row data for get the primary key value
    */
   deleteButtonClicked(e: any, row: any) {
-    this.deleteClicked.emit({ clickEvent: e, selectedRow: row });
+    this.deleteClicked.emit({ clickEvent: e, id: row.id });
   }
 }

@@ -20,7 +20,10 @@
         "BUTTONS": {
             "SAVE": "Save",
             "CLOSE": "Close",
-            "CANCEL": "Cancel"
+            "CANCEL": "Cancel",
+            "OK": "Ok",
+            "YES": "Yes",
+            "NO": "No"
         }
     },
     "MODULES": {
@@ -45,6 +48,12 @@
                 "High": "High",
                 "Medium": "Medium",
                 "Low": "Low"
+            },
+            "MESSAGES": {
+                "DELETE_TASK": {
+                    "TITLE": "Delete task",
+                    "CONTENT": "Are you sure for delete task {{id}}?"
+                }
             }
         }
     }

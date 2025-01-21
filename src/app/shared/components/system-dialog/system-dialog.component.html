@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>
+    {{title | translate}}
+</h2>
+<mat-dialog-content>
+    <h4 *ngIf="entityId;else withoutEntityId">
+        {{ content | translate: { id: entityId } }}
+    </h4>
+    <ng-template #withoutEntityId>
+        <h4>
+            {{ content | translate }}
+        </h4>
+    </ng-template>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <ng-container *ngFor="let button of dialogButtons">
+        <div *ngIf="button.name=='no' || button.name=='cancel';else secondaryButton" class="pe-1">
+            <button mat-button (click)="dialogButtonOnClick(button.name)">{{button.label |
+                translate}}</button>
+        </div>
+        <ng-template #secondaryButton>
+            <button mat-flat-button (click)="dialogButtonOnClick(button.name)">{{button.label |
+                translate}}</button>
+        </ng-template>
+    </ng-container>
+
+</mat-dialog-actions>

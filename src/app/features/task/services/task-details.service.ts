@@ -28,4 +28,8 @@ export class TaskDetailsService {
   putTask(id: number, taskDetails: any) {
     return this.http.put<any>(`${this.api}/${id}`, taskDetails);
   }
+
+  deleteTask(id: number) {
+    return this.http.delete<any>(`${this.api}/${id}`);
+  }
 }

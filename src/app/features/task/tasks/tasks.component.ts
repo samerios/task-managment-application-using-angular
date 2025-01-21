@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { TaskDetailsService } from '../services/task-details.service';
 import { take } from 'rxjs';
 import { TaskModelFormComponent } from './task-model-form/task-model-form.component';
@@ -7,6 +7,8 @@ import { ColumnConfig } from 'src/app/shared/models/components-models/table/colu
 import { TableConfig } from 'src/app/shared/models/components-models/table/table-config';
 import { TaskDetails } from 'src/app/shared/models/task/task-details';
 import { AccountService } from 'src/app/core/services/account.service';
+import { SystemDialogComponent } from 'src/app/shared/components/system-dialog/system-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tasks',
@@ -15,6 +17,8 @@ import { AccountService } from 'src/app/core/services/account.service';
 })
 export class TasksComponent implements OnInit {
   @ViewChild('taskModelForm') taskModelForm!: TaskModelFormComponent;
+
+  readonly dialog = inject(MatDialog);
 
   /**
    * Task details table configuration
@@ -25,14 +29,13 @@ export class TasksComponent implements OnInit {
 
   constructor(
     private taskDetailsService: TaskDetailsService,
-    private accountService:AccountService
+    private accountService: AccountService
   ) {}
 
   ngOnInit(): void {
     this.columnsConfig = [
       new ColumnConfig('id', 'MODULES.TASK.ID', 'text', true),
       new ColumnConfig('title', 'MODULES.TASK.Title'),
-      new ColumnConfig('description', 'MODULES.TASK.Description'),
       new ColumnConfig(
         'priority',
         'MODULES.TASK.Priority',
@@ -59,13 +62,13 @@ export class TasksComponent implements OnInit {
       .getUserTasks(this.accountService.getCurrentUser!.id)
       .pipe(take(1))
       .subscribe((data: TaskDetails[]) => {
-        this.tasksDetailsTableConfig = new TableConfig(
-          data,
-          this.columnsConfig,
-          'id',
-          false,
-          true
-        );
+        this.tasksDetailsTableConfig = {
+          data: data,
+          columnConfig: this.columnsConfig,
+          primaryKeyColumn: 'id',
+          deletable: true,
+          editable: true,
+        };
       });
   }
 
@@ -76,5 +79,33 @@ export class TasksComponent implements OnInit {
   ) {
     e.preventDefault();
     this.taskModelForm.open(formStatus, selectedRow);
+  }
+
+  openDeleteTaskDialog(e: Event, selectedTaskId: number) {
+    e.preventDefault();
+    const dialogRef = this.dialog.open(SystemDialogComponent, {
+      data: {
+        dialogType: 'YesNoPrompt',
+        title: 'MODULES.TASK.MESSAGES.DELETE_TASK.TITLE',
+        content: 'MODULES.TASK.MESSAGES.DELETE_TASK.CONTENT',
+        entityId: selectedTaskId,
+      },
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe((result) => {
+        if (result == 'yes') {
+          this.taskDetailsService
+            .deleteTask(selectedTaskId)
+            .pipe(take(1))
+            .subscribe(() => {
+              this.initData();
+            });
+        } else {
+          return;
+        }
+      });
   }
 }

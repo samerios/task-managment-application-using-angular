@@ -23,9 +23,14 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { SystemInputComponent } from './components/system-input/system-input.component';
+import { SystemDialogComponent } from './components/system-dialog/system-dialog.component';
 
 @NgModule({
-  declarations: [SystemTableComponents, SystemInputComponent],
+  declarations: [
+    SystemTableComponents,
+    SystemInputComponent,
+    SystemDialogComponent,
+  ],
   imports: [
     CommonModule,
     MatInputModule,
@@ -74,7 +79,8 @@ import { SystemInputComponent } from './components/system-input/system-input.com
     MatDialogModule,
     MatDatepickerModule,
     MatToolbarModule,
-    SystemInputComponent
+    SystemInputComponent,
+    SystemDialogComponent,
   ],
   providers: [provideNativeDateAdapter()],
 })

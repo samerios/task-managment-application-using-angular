@@ -3,7 +3,8 @@
 </div>
 <mat-divider style="padding-bottom:10px"></mat-divider>
 <app-system-table *ngIf="this.tasksDetailsTableConfig" [tableConfig]="this.tasksDetailsTableConfig"
-    (editClicked)="openTaskModel($event.clickEvent,'EDIT',$event.selectedRow)">
+    (editClicked)="openTaskModel($event.clickEvent,'EDIT',$event.selectedRow)"
+    (deleteClicked)="openDeleteTaskDialog($event.clickEvent,$event.id)">
 </app-system-table>
 
 <app-task-model-form #taskModelForm (onCreate)="initData()"></app-task-model-form>

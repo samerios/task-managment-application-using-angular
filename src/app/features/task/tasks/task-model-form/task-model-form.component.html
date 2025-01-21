@@ -5,7 +5,7 @@
         <h1>{{header | translate}}{{formStatus=='EDIT' && selectedTaskToEdit ? '('+selectedTaskToEdit.id+')' : ''}}</h1>
       </div>
       <div class="form-content">
-        <form [formGroup]="taskForm" (ngSubmit)="onSave($event)">
+        <form [formGroup]="taskForm" (ngSubmit)="onSave($event)" [class.pb-2]="formStatus=='EDIT'">
           <app-system-input label="MODULES.TASK.Title" type="text" formControlName="title"
             containerClasses="w-full"></app-system-input>
           <app-system-input label="MODULES.TASK.Description" type="textarea" formControlName="description"
@@ -22,10 +22,20 @@
           <app-system-input label="Choose a date" type="date" formControlName="dueDate"
             containerClasses="w-full"></app-system-input>
         </form>
+
+        <!--         @if(formStatus=='EDIT'){
+          <mat-divider class="pt-2"></mat-divider>
+          <h4>{{'Task comments'}}</h4>
+        <mat-card appearance="outlined">
+          <mat-card-content>Simple card</mat-card-content>
+        </mat-card>
+        } -->
+
       </div>
       <div class="form-footer">
         <button mat-button (click)="close()">{{"SYSTEM.BUTTONS.CLOSE" | translate}}</button>
-        <button type="submit" mat-flat-button [disabled]="taskForm.invalid" (click)="onSave($event)">{{"SYSTEM.BUTTONS.SAVE"
+        <button type="submit" mat-flat-button [disabled]="taskForm.invalid"
+          (click)="onSave($event)">{{"SYSTEM.BUTTONS.SAVE"
           | translate}}</button>
       </div>
     </div>
