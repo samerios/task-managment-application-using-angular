@@ -1,5 +1,18 @@
-<div class="example-button-row" style=" padding-bottom: 10px;">
-    <button mat-flat-button (click)="openTaskModel($event)">{{"MODULES.TASK.ADD_NEW_TASK" | translate}}</button>
+<div class="flex row justify-between w-full">
+    <div class="example-button-row" style=" padding-bottom: 10px;">
+        <button mat-flat-button (click)="openTaskModel($event)">{{"MODULES.TASK.ADD_NEW_TASK" | translate}}</button>
+    </div>
+    <div class="w-1/4">
+        <mat-form-field>
+            <mat-label>{{'MODULES.TASK.Status'|translate}}</mat-label>
+            <mat-select (selectionChange)="filteredData($event.value)"
+                placeholder="{{'MODULES.TASK.Status'|translate}}">
+                <mat-option *ngFor="let status of taskStatusList" [value]="status">
+                    {{status=='' ? '' : "MODULES.TASK.STATUS."+status |translate}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
 </div>
 <mat-divider style="padding-bottom:10px"></mat-divider>
 <app-system-table *ngIf="this.tasksDetailsTableConfig" [tableConfig]="this.tasksDetailsTableConfig"

@@ -63,9 +63,7 @@ export class SystemTableComponents implements OnInit, AfterViewInit, OnChanges {
           : JSON.stringify(changes['tableConfig'].previousValue);
       let newValue = JSON.stringify(changes['tableConfig'].currentValue);
 
-      if (oldValue && !oldValue.includes(newValue)) {
-        this.prepareData(changes['tableConfig'].currentValue);
-      }
+      this.prepareData(changes['tableConfig'].currentValue);
     }
   }
 

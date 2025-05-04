@@ -27,6 +27,10 @@ export class TasksComponent implements OnInit {
 
   columnsConfig: ColumnConfig[] = [];
 
+  taskStatusList: string[] = ['', 'ToDo', 'InProgress', 'Done'];
+
+  tableData: TaskDetails[] = [];
+
   constructor(
     private taskDetailsService: TaskDetailsService,
     private accountService: AccountService
@@ -57,13 +61,25 @@ export class TasksComponent implements OnInit {
     this.initData();
   }
 
+  filteredData(status: any) {
+    if (status === '') {
+      this.tasksDetailsTableConfig.data = [...this.tableData];
+    } else {
+      this.tasksDetailsTableConfig.data = [
+        ...this.tableData.filter((d) => d.status === status),
+      ];
+    }
+    this.tasksDetailsTableConfig = { ...this.tasksDetailsTableConfig };
+  }
+
   initData() {
     this.taskDetailsService
       .getUserTasks(this.accountService.getCurrentUser!.id)
       .pipe(take(1))
       .subscribe((data: TaskDetails[]) => {
+        this.tableData = [...data];
         this.tasksDetailsTableConfig = {
-          data: data,
+          data: [...this.tableData],
           columnConfig: this.columnsConfig,
           primaryKeyColumn: 'id',
           deletable: true,
