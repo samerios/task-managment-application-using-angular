@@ -31,6 +31,8 @@ export class TasksComponent implements OnInit {
 
   tableData: TaskDetails[] = [];
 
+  statusFilterValue: string = '';
+
   constructor(
     private taskDetailsService: TaskDetailsService,
     private accountService: AccountService
@@ -77,6 +79,7 @@ export class TasksComponent implements OnInit {
       .getUserTasks(this.accountService.getCurrentUser!.id)
       .pipe(take(1))
       .subscribe((data: TaskDetails[]) => {
+        this.statusFilterValue = '';
         this.tableData = [...data];
         this.tasksDetailsTableConfig = {
           data: [...this.tableData],

@@ -5,7 +5,7 @@
     <div class="w-1/4">
         <mat-form-field>
             <mat-label>{{'MODULES.TASK.Status'|translate}}</mat-label>
-            <mat-select (selectionChange)="filteredData($event.value)"
+            <mat-select [(value)]="statusFilterValue" (selectionChange)="filteredData($event.value)"
                 placeholder="{{'MODULES.TASK.Status'|translate}}">
                 <mat-option *ngFor="let status of taskStatusList" [value]="status">
                     {{status=='' ? '' : "MODULES.TASK.STATUS."+status |translate}}
@@ -20,4 +20,4 @@
     (deleteClicked)="openDeleteTaskDialog($event.clickEvent,$event.id)">
 </app-system-table>
 
-<app-task-model-form #taskModelForm (onCreate)="initData()"></app-task-model-form>
+<app-task-model-form #taskModelForm (onCreate)="initData()" (onClose)="initData()"></app-task-model-form>

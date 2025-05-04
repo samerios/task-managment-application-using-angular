@@ -31,6 +31,8 @@ export class TaskModelFormComponent implements OnInit {
 
   @Output() onCreate = new EventEmitter();
 
+  @Output() onClose = new EventEmitter();
+
   taskForm!: FormGroup;
 
   formStatus: FormStatus = 'ADD';
@@ -80,6 +82,7 @@ export class TaskModelFormComponent implements OnInit {
     this.selectedTaskToEdit = null;
     this.class = '';
     this.sidenavRef.close();
+    this.onClose.emit();
   }
 
   getDirtyValues(form: FormGroup): any {
@@ -134,6 +137,7 @@ export class TaskModelFormComponent implements OnInit {
           .pipe(take(1))
           .subscribe(() => {
             this.close();
+            this.onClose.emit();
             this.onCreate.emit();
           });
       }
